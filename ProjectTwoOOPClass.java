@@ -4,19 +4,22 @@ import static java.lang.System.out;
 //Created by Cole Stanley (RäDev) for COP 3330C
 
 public abstract class Loan implements LoanConstants {
-    private int loanNum;
-    private String lastName;
-    private double loanAmt;
-    private double interestRate;
-    private int loanTerm;
+    protected int loanNum;
+    protected String lastName;
+    protected double loanAmt;
+    protected double interestRate;
+    protected int loanTerm;
+    protected double currentPrimeRate;
 
-    protected Loan(int lnNum, String LstNm, double lnmt, int lnTerm) { //"Ln" = "Loan."
+    protected Loan(int lnNum, String LstNm, double lnmt, int lnTerm, double intRate, double currPrmRt) { //"Ln" = "Loan."
         if(lnmt > 50000) out.println("Loans cannot be made above $50,000. Please try again with an amount less than or equal to this amount. Thank you.");
         if(lnTerm != 1 || lnTerm != 3 || lnTerm != 5) lnTerm = 1;
         lnNum = loanNum;
         LstNm = lastName;
         lnmt = loanAmt;
         lnTerm = loanTerm;
+        intRate = interestRate;
+        currPrmRt = currentPrimeRate;
 }
 
 }
@@ -24,15 +27,35 @@ interface LoanConstants {
     final int shortTerm = 1;
     final int medTerm = 3;
     final int longTerm = 5;
-    final String companyName = "Ye olde Loan Company (But for technology)";
+    final String companyName = "Loans 'R Us!";
     final int maxLoanAmt = 50000;
 }
-class BusinessLoan extends Loan {}
-class PersonalLoan extends Loan {}
+class BusinessLoan extends Loan {
+
+    protected BusinessLoan(int lnNum, String LstNm, double lnmt, int lnTerm, double intRate, double currPrmRt) {
+        super(lnNum, LstNm, lnmt, lnTerm, intRate, currPrmRt);
+        interestRate = 0.01 + currentPrimeRate;
+
+    }
+
+
+
+}
+class PersonalLoan extends Loan {
+
+    protected PersonalLoan(int lnNum, String LstNm, double lnmt, int lnTerm, double intRate, double currPrmRt) {
+        super(lnNum, LstNm, lnmt, lnTerm, intRate, currPrmRt);
+        interestRate = 0.02 + currentPrimeRate;
+
+    }
+
+}
 class CreateLoans {
 
     public static void main(String[] args) {
 
         
     }
+
+    
 }
