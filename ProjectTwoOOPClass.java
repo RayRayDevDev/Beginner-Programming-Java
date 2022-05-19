@@ -12,7 +12,7 @@ public abstract class Loan implements LoanConstants {
     protected double currentPrimeRate;
 
     protected Loan(int lnNum, String LstNm, double lnmt, int lnTerm, double intRate, double currPrmRt) { //"Ln" = "Loan."
-        if(lnmt > 50000) out.println("Loans cannot be made above $50,000. Please try again with an amount less than or equal to this amount. Thank you.");
+        if(lnmt > maxLoanAmt) out.println("Loans cannot be made above $50,000. Please try again with an amount less than or equal to this amount. Thank you.");
         if(lnTerm != 1 || lnTerm != 3 || lnTerm != 5) lnTerm = 1;
         lnNum = loanNum;
         LstNm = lastName;
@@ -57,5 +57,5 @@ class CreateLoans {
         
     }
 
-    
+
 }
