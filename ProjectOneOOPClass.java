@@ -4,18 +4,20 @@ import java.util.Scanner; //Importing for userInput.
 class Main {
     
     public static void main(String[] args) {
-        double userLength; //Fields for User inputted length, width, radius, and the final area depending on the control statement executed.
-        double userWidth;
-        double userRadius;
-        double finalArea;
-        Rectangle zeroArgRect =  new Rectangle(); //Call first 0 arg constructor for class Rectangle and initialize all values to "0." 
-        Circle zeroArgCircle = new Circle();  //Call first 0 arg constructor for class Circle and initialize all values to "0."
-        out.println("The current length of a Rectangle stored in memory is: " + zeroArgRect.getLength() + ".");  //Show all values are, indeed, initialized to 0 per the first constructor. 
-        out.println("The current width of a Rectangle stored in memory is: " + zeroArgRect.getWidth() + ".");
-        out.println("The current radius of a Circle stored in memory is: " + zeroArgCircle.getRadius() + "."); 
-        Scanner userInput = new Scanner(System.in); //New scanner object for user input.
-        out.println("Please type a number to select an option:\n1. Compute the area of a Rectangle\n2. Compute the area of a Circle");  //Menu for the user's menu choice.
-        int userChoice = userInput.nextInt();  //Variable to store the user's menu selection.
+        
+        try {  //Catch all exceptions, most likely InputFormatExceptions. This is the only way I could figure it out without doing weird conversion things that I don't yet understand in Java, unfortunately.
+            double userLength; //Fields for User inputted length, width, radius, and the final area depending on the control statement executed.
+            double userWidth;
+            double userRadius;
+            double finalArea;
+            Rectangle zeroArgRect =  new Rectangle(); //Call first 0 arg constructor for class Rectangle and initialize all values to "0." 
+            Circle zeroArgCircle = new Circle();  //Call first 0 arg constructor for class Circle and initialize all values to "0."
+            out.println("The current length of a Rectangle stored in memory is: " + zeroArgRect.getLength() + ".");  //Show all values are, indeed, initialized to 0 per the first constructor. 
+            out.println("The current width of a Rectangle stored in memory is: " + zeroArgRect.getWidth() + ".");
+            out.println("The current radius of a Circle stored in memory is: " + zeroArgCircle.getRadius() + "."); 
+            Scanner userInput = new Scanner(System.in); //New scanner object for user input.
+            out.println("Please type a number to select an option:\n1. Compute the area of a Rectangle\n2. Compute the area of a Circle");  //Menu for the user's menu choice.
+            int userChoice = userInput.nextInt();  //Variable to store the user's menu selection.
 
         if(userChoice == 1) {  //Logic for if the user wants to compute the area of a rectangle. 
             out.print("Please enter the length of the rectangle: ");
@@ -37,10 +39,10 @@ class Main {
             out.println("The area of a Circle with radius " + oneArgCircle.getRadius() + " is: " + finalArea + ".");
         }
 
-        else {
-            out.println("You did not enter a valid option. Please try again.");
         }
-        
+        catch (Exception e) {  //Catch the aforementioned exceptions.
+            out.println("You did not enter a valid input. Please try again.");
+        }
     } 
 }
 
