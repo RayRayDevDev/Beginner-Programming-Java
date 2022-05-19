@@ -1,6 +1,5 @@
 import static java.lang.System.out; //Got tired of writing the entire "Println" or "Print" statements out.
 import java.util.Scanner; //Importing for userInput.
-import java.math; //Importing for PI and POW methods. 
 
 class Main {
     
