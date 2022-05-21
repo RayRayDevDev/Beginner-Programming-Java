@@ -1,6 +1,9 @@
 import static java.lang.System.out; //Got tired of writing the entire "Println" or "Print" statements out.
 import java.util.Scanner; //Importing for userInput.
 
+//Code by: Cole Stanley (RäDev)
+//Created with JDK 18.0.1.1
+
 class Main {
     
     public static void main(String[] args) {
@@ -38,6 +41,7 @@ class Main {
             finalArea = oneArgCircle.computeArea();
             out.println("The area of a Circle with radius " + oneArgCircle.getRadius() + " is: " + finalArea + ".");
         }
+        else out.println("You did not make a valid selection. Please try again.");
 
         }
         catch (Exception e) {  //Catch the aforementioned exceptions.
