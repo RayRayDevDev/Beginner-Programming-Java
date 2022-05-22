@@ -24,28 +24,29 @@ class Main {
 
         if(userChoice == 1) {  //Logic for if the user wants to compute the area of a rectangle. 
             out.print("Please enter the length of the rectangle: ");
-            userLength = userInput.nextDouble();  //Variable for storing the Inputted length of the rectangle to allow for passing into a new constructor after the user makes all inputs. 
+            userLength = userInput.nextDouble();  //Variable for storing the inputted length of the rectangle to allow for passing into a new constructor after the user makes all inputs. 
             Rectangle.setLength(userLength);  //Setting length per requirements. 
             out.print("Please enter the width of the rectangle: ");
-            userWidth = userInput.nextDouble();  //Variable for storing the Inputted width of the rectangle to allow for passing into a new constructor after the user makes all inputs.
+            userWidth = userInput.nextDouble();  //Variable for storing the inputted width of the rectangle to allow for passing into a new constructor after the user makes all inputs.
             Rectangle.setWidth(userWidth);  //Setting width per requirements.
             Rectangle twoArgRect = new Rectangle(userLength, userWidth);  //Pass the two variables storing the user's input into the overloaded constructor.
-            finalArea = twoArgRect.computeArea();
-            out.println("The area of a Rectangle with length " + twoArgRect.getLength() + " and width " + twoArgRect.getWidth() + " is: " + finalArea + "." );
+            finalArea = twoArgRect.computeArea();  //Compute the area using the stored variables from the new constructor which took in the previous two arguments and store it in a variable.
+            out.println("The area of a Rectangle with length " + twoArgRect.getLength() + " and width " + twoArgRect.getWidth() + " is: " + finalArea + "." );  //Print the result of the calculation.
         }
 
-        else if(userChoice == 2) {
+        else if(userChoice == 2) {  //Logic for if a user wants to compute the area of a circle. 
             out.print("Please enter the radius of the Circle: ");
-            userRadius = userInput.nextDouble();
-            Circle oneArgCircle = new Circle(userRadius);
-            finalArea = oneArgCircle.computeArea();
-            out.println("The area of a Circle with radius " + oneArgCircle.getRadius() + " is: " + finalArea + ".");
+            userRadius = userInput.nextDouble();  //Variable for storing the inputted radius of the circle to allow for passing into a new constructor after the user makes all inputs.
+            Circle.setRadius(userRadius);  //Setting radius per requirements.
+            Circle oneArgCircle = new Circle(userRadius);  //Pass the variable into the overloaded constructor.
+            finalArea = oneArgCircle.computeArea();  //Compute the area using the stored variables from the new constructor which took in the previous argument and store it in a variable.
+            out.println("The area of a Circle with radius " + oneArgCircle.getRadius() + " is: " + finalArea + ".");  //Print the result of the calculation.
         }
-        else out.println("You did not make a valid selection. Please try again.");
+        else out.println("You did not make a valid selection. Please try again."); //Catch an invalid menu choice.
 
         }
         catch (Exception e) {  //Catch the aforementioned exceptions.
-            out.println("You did not enter a valid input. Please try again.");
+            out.println("You did not enter a valid input. Please try again.");  //Catch all other exceptions. 
         }
     } 
 }
@@ -54,12 +55,12 @@ class Rectangle {
     private static double length;
     private static double width;
 
-    public Rectangle() {
+    public Rectangle() {  //Initial constructor setting values to "0".
         length = 0;
         width = 0;
     }
 
-    public Rectangle(double userLength, double userWidth) {
+    public Rectangle(double userLength, double userWidth) {  //Overloaded constructor per requirements.
         length = userLength;
         width = userWidth;
     }
@@ -80,32 +81,32 @@ class Rectangle {
         return width;
     }
 
-    public double computeArea() {
+    public double computeArea() {  //Compute the area of the rectangle and return the result to the calling function.
         return length * width;
     }
 
 }
 
 class Circle {
-    private double radius;
+    private static double radius;
 
-    public Circle() {
+    public Circle() {  //Initial constructor setting the value to "0".
         radius = 0;
     }
 
-    public Circle(double userRadius) {
+    public Circle(double userRadius) {  //Overloaded constructor per requirements. 
         radius = userRadius;
     }
 
-    public void setRadius(double radius) {
-        this.radius = radius;
+    public static void setRadius(double userRadius) {
+        radius = userRadius;
     }
 
     public double getRadius() {
         return radius;
     }
 
-    public double computeArea() {
+    public double computeArea() {  //Compute the area of the circle and return the result to the calling function. 
         return Math.PI * Math.pow(radius, 2);
 
     } 
