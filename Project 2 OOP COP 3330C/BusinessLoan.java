@@ -1,5 +1,4 @@
 import static java.lang.System.out;
-import Loan.java;
 
 
 public class BusinessLoan extends Loan {

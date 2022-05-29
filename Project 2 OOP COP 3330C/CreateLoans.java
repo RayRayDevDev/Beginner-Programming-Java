@@ -1,8 +1,4 @@
 import static java.lang.System.out;
-import Loan.java;
-import PersonalLoan.java;
-import BusinessLoan.java;
-
 import java.util.Arrays;
 import java.util.Scanner;
 

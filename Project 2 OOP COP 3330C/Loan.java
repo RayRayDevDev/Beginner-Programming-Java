@@ -1,6 +1,5 @@
 import static java.lang.System.out;
 
-
 public abstract class Loan implements LoanConstants {
     int loanNumber = 0;
     String lastName = null;  //Customer's Last Name
@@ -21,7 +20,7 @@ public abstract class Loan implements LoanConstants {
         double finalDecimalValue = userInputtedPercentage / 100;
         return finalDecimalValue;
     }
-    
+
      
 
     public String toString() {

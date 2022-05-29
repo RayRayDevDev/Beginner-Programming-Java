@@ -1,6 +1,5 @@
 import static java.lang.System.out;
 
-
 public interface LoanConstants {
     final int shortTerm = 1;
     final int medTerm = 3;
