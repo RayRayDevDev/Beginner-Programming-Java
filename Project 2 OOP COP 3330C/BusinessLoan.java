@@ -1,4 +1,8 @@
-class BusinessLoan extends Loan {
+import static java.lang.System.out;
+import Loan.java;
+
+
+public class BusinessLoan extends Loan {
 
     protected BusinessLoan(int lnNum, String LstNm, double lnmt, int lnTerm, double prmRte) {
         super(lnNum, LstNm, lnmt, lnTerm);
@@ -6,13 +10,13 @@ class BusinessLoan extends Loan {
         out.println(finalDecimalValue);
         businessInterestRate = finalDecimalValue + 0.01;
         out.println(businessInterestRate);
-        double businessTotal = businessLoanTotal(lnmt);
+        double businessTotal = businessLoanMath(lnmt);
         out.println(businessTotal);
     }
 
 
 
-    public double businessLoanTotal(double reqAmt) {
+    public double businessLoanMath(double reqAmt) {
         return (reqAmt * businessInterestRate) + reqAmt;
     }
 
