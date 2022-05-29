@@ -15,21 +15,21 @@ public class CreateLoans implements LoanConstants {
     static int i = 0;
     static int loanNumber = 0;
     static int userChoice;
+
     public static void main(String[] args) {
 
         Scanner userInput = new Scanner(System.in);
 
         try {
-        out.print("Please enter your last name: ");
-        String userLast = userInput.nextLine();
-        out.print("Please enter the current Prime Interest Rate as a percentage ('2' for 2%, for example): ");
-        double userCurrPrime = userInput.nextDouble();
-        if (userCurrPrime <= 0 || userCurrPrime > 25) {
-            out.println("The interest rate cannot be that low or high. Please try again.");
-            System.exit(1); // Highest prime rate was 21.5 in the '80's. Gave some wiggle room.
-        }
+            out.print("Please enter your last name: ");
+            String userLast = userInput.nextLine();
+            out.print("Please enter the current Prime Interest Rate as a percentage ('2' for 2%, for example): ");
+            double userCurrPrime = userInput.nextDouble();
+            if (userCurrPrime <= 0 || userCurrPrime > 25) {
+                out.println("The interest rate cannot be that low or high. Please try again.");
+                System.exit(1); // Highest prime rate was 21.5 in the '80's. Gave some wiggle room.
+            }
 
-       
             for (i = 0; i != 5; i++) {
                 out.print("Please enter your desired loan amount in the format xxxxx.xx: ");
                 double userAmt = userInput.nextDouble();
@@ -58,7 +58,6 @@ public class CreateLoans implements LoanConstants {
                         "Please select either a business loan by typing the number '1,' or a personal loan by typing the number '2.' ");
 
                 userChoice = userInput.nextInt();
-                
 
                 if (userChoice == 1) {
                     loanArray[i] = new BusinessLoan(loanNumber, userLast, userAmt, userTerm, userCurrPrime);
@@ -68,26 +67,22 @@ public class CreateLoans implements LoanConstants {
 
                 } else if (userChoice == 0) {
                     break;
-                } 
-                else {
+                } else {
                     out.println("You did not enter a vaild choice. Please try again.");
                     break;
                 }
-                
+
                 loanNumber++;
             }
 
-            
-          
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             out.println("You did not enter a valid response. Please try again.");
         }
-        for(int j = 0; j < loanArray.length; j++) {
+        for (int j = 0; j < loanArray.length; j++) {
             out.println(loanArray[j]);
         }
     }
-    
+
     public static int getUserChoice() {
         return userChoice;
     }
