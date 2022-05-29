@@ -11,13 +11,15 @@ import java.util.Scanner;
 
 public class CreateLoans implements LoanConstants {
 
-    static int loanNumber = 0;
     static Loan[] loanArray = new Loan[5];
     static int i = 0;
-
+    static int loanNumber = 0;
+    static int userChoice;
     public static void main(String[] args) {
 
         Scanner userInput = new Scanner(System.in);
+
+        try {
         out.print("Please enter your last name: ");
         String userLast = userInput.nextLine();
         out.print("Please enter the current Prime Interest Rate as a percentage ('2' for 2%, for example): ");
@@ -54,28 +56,40 @@ public class CreateLoans implements LoanConstants {
 
                 out.print(
                         "Please select either a business loan by typing the number '1,' or a personal loan by typing the number '2.' ");
-                int userChoice = userInput.nextInt();
+
+                userChoice = userInput.nextInt();
+                
 
                 if (userChoice == 1) {
                     loanArray[i] = new BusinessLoan(loanNumber, userLast, userAmt, userTerm, userCurrPrime);
-                    out.println(loanArray[i].toString());
 
                 } else if (userChoice == 2) {
                     loanArray[i] = new PersonalLoan(loanNumber, userLast, userAmt, userTerm, userCurrPrime);
-                    out.println(loanArray[i].toString());
 
-                } else {
+                } else if (userChoice == 0) {
+                    break;
+                } 
+                else {
                     out.println("You did not enter a vaild choice. Please try again.");
                     break;
                 }
-
+                
                 loanNumber++;
-        }
+            }
 
+            
+          
+        }
+        catch (Exception e) {
+            out.println("You did not enter a valid response. Please try again.");
+        }
+            loanNumber++;
         for(int j = 0; j < loanArray.length; j++) {
             out.println(loanArray[j]);
         }
     }
-
-
+    
+    public static int getUserChoice() {
+        return userChoice;
+    }
 }

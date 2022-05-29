@@ -2,16 +2,16 @@ import static java.lang.System.out;
 
 
 public abstract class Loan implements LoanConstants {
-    int loanNumber = CreateLoans.i;  //Loan Number
+    int loanNumber = 0;
     String lastName = null;  //Customer's Last Name
     double loanAmt = 0;  //Requested Loan Amount
-    double personalInterestRate = 0;  //Personal Loan Combined Interest Rate in decimal form
-    double businessInterestRate = 0;  //Business Loan Combined Interest Rate in decimal form
-    double interestRateArray[];
+    static double personalInterestRate = 0;  //Personal Loan Combined Interest Rate in decimal form
+    static double businessInterestRate = 0;  //Business Loan Combined Interest Rate in decimal form
     int loanTerm;  //Requested Loan Term
-
+    static String isBusiness = null;
     public Loan(int lnNum, String LstNm, double lnmt, int lnTerm) { //"Ln" = "Loan."
-        loanNumber = lnNum ;
+        lnNum += 1;
+        loanNumber = lnNum;
         lastName= LstNm;
         loanAmt = lnmt;
         loanTerm = lnTerm;
@@ -21,8 +21,24 @@ public abstract class Loan implements LoanConstants {
         double finalDecimalValue = userInputtedPercentage / 100;
         return finalDecimalValue;
     }
+    public static void personalOrBusiness(int userChoice) {
+         if(CreateLoans.getUserChoice() == 1) {
+            businessInterestRate = BusinessLoan.getBusinessInterestRate();
+        }
+        else if(CreateLoans.getUserChoice() == 2) {
+            personalInterestRate = PersonalLoan.getPersonalInterestRate();
+        }
+        else out.println("I dunno how you're seeing this.");
+    }
+
     public String toString() {
-        String loanInfo = "Loan Number: " + (loanNumber += 1) + ".\n" + "Last Name: " + lastName + ".\n" + "Requested Loan Amount: " + loanAmt + ".\n" + "Interest Rate(s): " + interestRateArray + ".\n" + "Loan Term: " + loanTerm + ".\n";
+        String loanInfo = "Loan Number: " + loanNumber + ".\n" + 
+        "Last Name: " + lastName + ".\n" + 
+        "Requested Loan Amount: $" + loanAmt + ".\n" + 
+        "Combined Business Interest Rate: " + businessInterestRate + ".\n" + 
+        "Combined Personal Interest Rate: " + personalInterestRate + ".\n" +
+        "Loan Term: " + loanTerm + " years.\n" +
+        "Total amount owed at loan maturity: $" + Math.round(BusinessLoan.getBusinessTotal())  + ".\n";
         return loanInfo;
     }
 
