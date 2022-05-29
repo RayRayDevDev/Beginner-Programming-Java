@@ -21,7 +21,7 @@ public abstract class Loan implements LoanConstants {
         double finalDecimalValue = userInputtedPercentage / 100;
         return finalDecimalValue;
     }
-
+    
      
 
     public String toString() {
