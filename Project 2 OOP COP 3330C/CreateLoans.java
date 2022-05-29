@@ -29,7 +29,7 @@ public class CreateLoans implements LoanConstants {
             }
 
             for (i = 0; i != 5; i++) {
-                out.print("Please enter your desired loan amount in the format xxxxx.xx: ");
+                out.print("\nPlease enter your desired loan amount in the format xxxxx.xx: ");
                 double userAmt = userInput.nextDouble();
                 if (userAmt > maxLoanAmt) {
                     out.println(
