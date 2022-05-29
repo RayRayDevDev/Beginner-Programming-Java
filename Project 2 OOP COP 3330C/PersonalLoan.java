@@ -13,9 +13,14 @@ public class PersonalLoan extends Loan {
     public static double getPersonalInterestRate() {
         return personalInterestRate;
     }
-    
+
     public static double getPersonalTotal() {
         return personalTotal;
+    }
+
+    public static boolean isPersonal() {
+        if(CreateLoans.userChoice == 2) return true;
+        else return false;
     }
 
     public double personalLoanMath(double reqAmt) {

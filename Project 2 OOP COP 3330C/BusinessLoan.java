@@ -21,7 +21,7 @@ public class BusinessLoan extends Loan {
     public static double getBusinessTotal() {
         return businessTotal;
     }
-    
+
     public double businessLoanMath(double reqAmt) {
         return (reqAmt * businessInterestRate) + reqAmt;
     }

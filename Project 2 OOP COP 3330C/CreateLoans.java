@@ -15,7 +15,9 @@ public class CreateLoans implements LoanConstants {
     static int i = 0;
     static int loanNumber = 0;
     static int userChoice;
-
+    static int businessInterestRate = 0;
+    static int personalInterestRate = 0;
+    static double loanAmt;
     public static void main(String[] args) {
 
         Scanner userInput = new Scanner(System.in);
@@ -60,10 +62,14 @@ public class CreateLoans implements LoanConstants {
                 userChoice = userInput.nextInt();
 
                 if (userChoice == 1) {
+
                     loanArray[i] = new BusinessLoan(loanNumber, userLast, userAmt, userTerm, userCurrPrime);
+                    Loan[] loanAmt = Arrays.copyOfRange(loanArray, 2, 2);
+
 
                 } else if (userChoice == 2) {
                     loanArray[i] = new PersonalLoan(loanNumber, userLast, userAmt, userTerm, userCurrPrime);
+                    Loan[] loanAmt = Arrays.copyOfRange(loanArray, 2, 2);
 
                 } else if (userChoice == 0) {
                     break;
