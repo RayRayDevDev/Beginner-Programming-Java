@@ -83,7 +83,6 @@ public class CreateLoans implements LoanConstants {
         catch (Exception e) {
             out.println("You did not enter a valid response. Please try again.");
         }
-            loanNumber++;
         for(int j = 0; j < loanArray.length; j++) {
             out.println(loanArray[j]);
         }
