@@ -28,7 +28,7 @@ public class CreateLoans implements LoanConstants {
             }
 
             for (i = 0; i != 5; i++) {
-                out.print("\nPlease enter your desired loan amount in the format xxxxx.xx: ");
+                out.print("\n\nPlease enter your desired loan amount in the format xxxxx.xx: ");
                 double userAmt = userInput.nextDouble();
                 if (userAmt > maxLoanAmt) {
                     out.println(
@@ -52,7 +52,7 @@ public class CreateLoans implements LoanConstants {
                 }
 
                 out.print(
-                        "\nPlease select either a business loan by typing the number '1,' or a personal loan by typing the number '2.' ");
+                        "Please select either a business loan by typing the number '1,' or a personal loan by typing the number '2.' ");
 
                 userChoice = userInput.nextInt();
 
