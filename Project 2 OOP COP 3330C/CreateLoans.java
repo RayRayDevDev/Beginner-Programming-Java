@@ -13,15 +13,14 @@ public class CreateLoans implements LoanConstants {
     static int userChoice;
     static int businessInterestRate = 0;
     static int personalInterestRate = 0;
-    static double loanAmt;
     public static void main(String[] args) {
 
         Scanner userInput = new Scanner(System.in);
 
         try {
-            out.print("Please enter your last name: ");
+            out.print("\nPlease enter your last name: ");
             String userLast = userInput.nextLine();
-            out.print("Please enter the current Prime Interest Rate as a percentage ('2' for 2%, for example): ");
+            out.print("\nPlease enter the current Prime Interest Rate as a percentage ('2' for 2%, for example): ");
             double userCurrPrime = userInput.nextDouble();
             if (userCurrPrime <= 0 || userCurrPrime > 25) {
                 out.println("The interest rate cannot be that low or high. Please try again.");
@@ -33,10 +32,10 @@ public class CreateLoans implements LoanConstants {
                 double userAmt = userInput.nextDouble();
                 if (userAmt > maxLoanAmt) {
                     out.println(
-                            "Loans cannot be made above $50,000. Please try again with an amount less than or equal to this amount. Thank you.");
+                            "\nLoans cannot be made above $50,000. Please try again with an amount less than or equal to this amount. Thank you.\n");
                     System.exit(1);
                 }
-                out.print("Please enter your desired loan term using only whole numbers such as '1,' '3,' or '5.': ");
+                out.print("\nPlease enter your desired loan term using only whole numbers such as '1,' '3,' or '5.': ");
                 int userTerm = userInput.nextInt();
 
                 if (userTerm == shortTerm || userTerm == medTerm || userTerm == longTerm) { // Something went wrong and
@@ -44,33 +43,31 @@ public class CreateLoans implements LoanConstants {
                                                                                             // default term with !=
                                                                                             // operators. So did this to
                                                                                             // fix it.
-                    out.println("Valid loan term. Proceeding...");
+                    out.println("\nValid loan term. Proceeding...\n");
                 }
 
                 else {
-                    out.println("Invalid loan term. Using default loan term instead.");
+                    out.println("\nInvalid loan term. Using default loan term instead...\n");
                     userTerm = shortTerm;
                 }
 
                 out.print(
-                        "Please select either a business loan by typing the number '1,' or a personal loan by typing the number '2.' ");
+                        "\nPlease select either a business loan by typing the number '1,' or a personal loan by typing the number '2.' ");
 
                 userChoice = userInput.nextInt();
 
                 if (userChoice == 1) {
 
                     loanArray[i] = new BusinessLoan(loanNumber, userLast, userAmt, userTerm, userCurrPrime);
-                    Loan[] loanAmt = Arrays.copyOfRange(loanArray, 2, 2);
 
 
                 } else if (userChoice == 2) {
                     loanArray[i] = new PersonalLoan(loanNumber, userLast, userAmt, userTerm, userCurrPrime);
-                    Loan[] loanAmt = Arrays.copyOfRange(loanArray, 2, 2);
 
                 } else if (userChoice == 0) {
                     break;
                 } else {
-                    out.println("You did not enter a vaild choice. Please try again.");
+                    out.println("\nYou did not enter a vaild choice. Please try again.\n");
                     break;
                 }
 
@@ -78,7 +75,7 @@ public class CreateLoans implements LoanConstants {
             }
 
         } catch (Exception e) {
-            out.println("You did not enter a valid response. Please try again.");
+            out.println("\nYou did not enter a valid response. Please try again.\n");
         }
         for (int j = 0; j < loanArray.length; j++) {
             out.println(loanArray[j]);

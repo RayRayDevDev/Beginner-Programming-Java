@@ -6,9 +6,9 @@ public class PersonalLoan extends Loan {
         super(lnNum, LstNm, lnmt, lnTerm);
         double finalDecimalValue = percentToDecimalCalc(prmRte);
         personalInterestRate = finalDecimalValue + 0.02;
-        out.println("The combined Personal Interest rate is: " + (personalInterestRate * 100) + "%.");
+        out.println("\nThe combined Personal Interest rate is: " + (personalInterestRate * 100) + "%.");
         personalTotal = personalLoanMath(lnmt);
-        out.println("The total amount due at the loan's maturity: $" + personalTotal);
+        out.println("\nThe total amount due at the loan's maturity: $" + personalTotal);
 
     }
 
@@ -18,11 +18,6 @@ public class PersonalLoan extends Loan {
 
     public static double getPersonalTotal() {
         return personalTotal;
-    }
-
-    public static boolean isPersonal() {
-        if(CreateLoans.userChoice == 2) return true;
-        else return false;
     }
 
     public double personalLoanMath(double reqAmt) {

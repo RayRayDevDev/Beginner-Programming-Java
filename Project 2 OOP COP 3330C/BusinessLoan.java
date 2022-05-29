@@ -7,9 +7,9 @@ public class BusinessLoan extends Loan {
         super(lnNum, LstNm, lnmt, lnTerm);
         double finalDecimalValue = percentToDecimalCalc(prmRte);
         businessInterestRate = finalDecimalValue + 0.01;
-        out.println("The combined Business Interest rate is: " + (businessInterestRate * 100) + "%.");
+        out.println("\nThe combined Business Interest rate is: " + (businessInterestRate * 100) + "%.");
         businessTotal = businessLoanMath(lnmt);
-        out.println("The total amount due at the loan's maturity: $" + businessTotal);
+        out.println("\nThe total amount due at the loan's maturity: $" + businessTotal);
     }
 
     public static double getBusinessInterestRate() {
