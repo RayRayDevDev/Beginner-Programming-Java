@@ -2,7 +2,7 @@ import static java.lang.System.out;
 
 
 public abstract class Loan implements LoanConstants {
-    int loanNumber = 0;  //Loan Number
+    int loanNumber = CreateLoans.i;  //Loan Number
     String lastName = null;  //Customer's Last Name
     double loanAmt = 0;  //Requested Loan Amount
     double personalInterestRate = 0;  //Personal Loan Combined Interest Rate in decimal form
@@ -22,7 +22,7 @@ public abstract class Loan implements LoanConstants {
         return finalDecimalValue;
     }
     public String toString() {
-        String loanInfo = "Loan Number: " + loanNumber + ".\n" + "Last Name: " + lastName + ".\n" + "Requested Loan Amount: " + loanAmt + ".\n" + "Interest Rate(s): " + interestRateArray + ".\n" + "Loan Term: " + loanTerm + ".\n";
+        String loanInfo = "Loan Number: " + (loanNumber += 1) + ".\n" + "Last Name: " + lastName + ".\n" + "Requested Loan Amount: " + loanAmt + ".\n" + "Interest Rate(s): " + interestRateArray + ".\n" + "Loan Term: " + loanTerm + ".\n";
         return loanInfo;
     }
 
