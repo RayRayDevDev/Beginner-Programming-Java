@@ -25,7 +25,7 @@ class RadioStation {
         for(int j = 0; j < radioCallSign.length(); j++){
             if(Character.isDigit(radioCallSign.charAt(j))) {
 
-                throw new RadioStationException("Station call signs must only consist of letters. Please try again.");
+                throw new RadioStationException("EXCEPTION: Station call signs must only consist of letters. Please try again.");
             }
 
             else{
@@ -47,7 +47,8 @@ class RadioStation {
                 radioStationFrequency = userInput.nextDouble();
                 stationArray[i] = new RadioStation(radioCallSign, radioStationFrequency); 
             } catch(RadioStationException e) {
-                out.println(e.getMessage());;
+                out.println(e.getMessage());
+                System.exit(1);
             }
                 
 
