@@ -1,6 +1,4 @@
 import static java.lang.System.out;
-import java.lang.reflect.Method;
-
 import java.util.Scanner;
 
 class RadioStationException extends Exception { //Custom exception handler.
