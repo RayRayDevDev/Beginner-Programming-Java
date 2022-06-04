@@ -28,7 +28,7 @@ class RadioStation {
 
      public void validateCallSign (String radioCallsign) throws RadioStationException {  //Validate call sign method.
         for(int j = 0; j < radioCallSign.length(); j++){ 
-            if(Character.isDigit(radioCallSign.charAt(j))) {  //Count each character in the string entered. Return false if a digit is encountered.
+            if(Character.isDigit(radioCallSign.charAt(j))) {  //Count each character in the string entered. Return true if a digit is encountered.
 
                 throw new RadioStationException("\nEXCEPTION in RadioStation: Station call signs must only consist of letters. Unable to create radio station object!");  //New exception object.
             }
