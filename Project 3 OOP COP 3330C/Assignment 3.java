@@ -1,5 +1,4 @@
 import static java.lang.System.out;
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -65,7 +64,7 @@ class RadioStation {
                 out.print("\nWelcome! Please enter the callsign of the radio station you'd like to listen to. Please enter only letters and ensure that the callsign is no more than four (4) letters in length:  ");
                 newRadioStation.radioCallSign = userInput.next(); 
                 newRadioStation.validateCallSign(newRadioStation.radioCallSign);
-                out.print("\nNext, please enter the carrier frequency of the desired radio station. Please note that the frequency cannot be below 88 or above 108. ");
+                out.print("\nNext, please enter the carrier frequency of the desired radio station. Please note that the frequency cannot be below 88 or above 108: ");
                 try {
                     newRadioStation.radioStationFrequency = userInput.nextDouble();
                 } catch (InputMismatchException e) {
