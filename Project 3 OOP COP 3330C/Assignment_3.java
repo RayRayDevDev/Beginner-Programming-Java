@@ -1,6 +1,7 @@
 import static java.lang.System.out;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
 //Code by Cole Stanley (RäDev)
 //Created with JDK 18.0.1.1
 
