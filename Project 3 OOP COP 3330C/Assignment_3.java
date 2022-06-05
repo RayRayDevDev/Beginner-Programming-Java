@@ -1,6 +1,8 @@
 import static java.lang.System.out;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+//Code by Cole Stanley (RäDev)
+//Created with JDK 18.0.1.1
 
 class RadioStationException extends Exception { //Custom exception handler.
 
@@ -80,7 +82,7 @@ class RadioStation {
                 out.println(e.getMessage());
             }
 
-            //if(radioStationFrequency == 0) break;
+            //if(radioStationFrequency == 0) break; Debug. 
                 
 
             } while(i < stationArray.length);
