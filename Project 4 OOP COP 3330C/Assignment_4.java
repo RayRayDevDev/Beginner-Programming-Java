@@ -1,7 +1,5 @@
 import static java.lang.System.out;
 
-import java.util.concurrent.TimeUnit;
-
 class Animal implements Runnable {
     private Thread animalThread; //Thread for the animal being instantiated.
     private String name;  //The animal's name and also the thread's name.
@@ -70,12 +68,13 @@ class Main {
     private float animalStartPos;
     private float animalStartSpeed;
     private int animalRestMax;
+
     public static void main(String[] args) {
         Animal animalName = new Animal();
         Animal animalStartPos = new Animal();
         Animal animalStartSpeed = new Animal();
         Animal animalRestMax = new Animal();
-        
+
         animalName.getName();
         animalStartPos.getPosition();
         animalStartSpeed.getSpeed();
