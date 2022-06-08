@@ -2,10 +2,10 @@ import static java.lang.System.out;
 
 class Animal implements Runnable {
     private Thread animalThread; //Thread for the animal being instantiated.
-    private String name;  //The animal's name and also the thread's name.
-    private float position;  //The animal's position.
-    private float speed;  //The animal's speed.
-    private int restMax;  //The maxium amount (in ms) the animal is ever allowed to rest.
+    private String name = null;  //The animal's name and also the thread's name.
+    private float position = 0;  //The animal's position.
+    private float speed = 0;  //The animal's speed.
+    private int restMax = 0;  //The maxium amount (in ms) the animal is ever allowed to rest.
     private long randomRest = Math.random(restMax);  //Determine's the random amount of time (up to the restMax) the animal may rest each time called.
     private boolean winner = false;  //Initial condition; nobody has raced, therefore nobody has won yet. 
 
@@ -64,17 +64,9 @@ class Animal implements Runnable {
 }
 
 class Main {
-    private String animalName;
-    private float animalStartPos;
-    private float animalStartSpeed;
-    private int animalRestMax;
 
     public static void main(String[] args) {
-        Animal animalName = new Animal();
-        Animal animalStartPos = new Animal();
-        Animal animalStartSpeed = new Animal();
-        Animal animalRestMax = new Animal();
-
+        
         animalName.getName();
         animalStartPos.getPosition();
         animalStartSpeed.getSpeed();
