@@ -9,8 +9,7 @@ class Animal implements Runnable {
     private int restMax = 0;  //The maxium amount (in ms) the animal is ever allowed to rest.
     private boolean winner = false;  //Initial condition; nobody has raced, therefore nobody has won yet. 
     Scanner userInput = new Scanner(System.in);
-    int i = 0;
-
+    
     Animal(String animalName, float animalStartPos, float animalStartSpeed, int animalRestMax) {
         name = animalName;
         position = animalStartPos;
