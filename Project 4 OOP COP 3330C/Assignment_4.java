@@ -4,7 +4,6 @@ import java.util.Random;
 import java.util.Scanner;
 
 class Animal implements Runnable {
-    private Thread animalThread; //Thread for the animal being instantiated.
     private String name = null;  //The animal's name and also the thread's name.
     private float position = 0;  //The animal's position.
     private float speed = 0;  //The animal's speed.
@@ -27,25 +26,25 @@ class Animal implements Runnable {
     }
     
     public void run() {
+
         while(position <= 100) {
             try {
             position += speed;
-            out.println("\nThe current animal, " + name + " is currently at position: " + position + " and is moving at a speed of " + speed + ".\n");
             Random random = new Random();
             int randomRest = random.nextInt(restMax) + 1;
+            out.println("\nThe current animal, " + name + ", is currently at position: " + position + " and is moving at a speed of " + speed + " and just rested for " + randomRest + " milliseconds!\n");
             Thread.sleep(randomRest);
+            
+            if(position >= 100) {
+                out.println(name + " is the winner!");
+                System.exit(0);;
             }
-
+            }
             catch (InterruptedException e) {
                 out.println(e.getMessage());
             }
         }
     }
-
-      public void start() {
-        
-      }
-    
 }
 
 class Main {
