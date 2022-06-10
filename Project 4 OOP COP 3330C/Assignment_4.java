@@ -11,7 +11,7 @@ class Animal implements Runnable {
     private boolean winner = false;  //Initial condition; nobody has raced, therefore nobody has won yet. 
     Scanner userInput = new Scanner(System.in);
     int i = 0;
-    
+
     Animal(String animalName, float animalStartPos, float animalStartSpeed, int animalRestMax) {
         name = animalName;
         position = animalStartPos;
@@ -31,8 +31,11 @@ class Animal implements Runnable {
             Thread.sleep(randomRest);
             
             if(position >= 100) {
-                out.println(name + " is the winner!");
-                System.exit(0);;
+                winner = true;
+                if(winner) {
+                    out.println(name + " is the winner!");
+                    System.exit(0);
+                }
             }
             }
             catch (InterruptedException e) {
