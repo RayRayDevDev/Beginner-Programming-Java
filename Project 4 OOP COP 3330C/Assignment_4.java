@@ -12,31 +12,7 @@ class Animal implements Runnable {
     private boolean winner = false;  //Initial condition; nobody has raced, therefore nobody has won yet. 
     Scanner userInput = new Scanner(System.in);
     int i;
-
-    public void setName(String name) {
-        this.name = name;
-    }
-    public String getName() {
-        return name;
-    }
-    public void setPosition(float position) {
-        this.position = position;
-    }
-    public float getPosition() {
-        return position;
-    }
-    public void setSpeed(float speed) {
-        this.speed = speed;
-    }
-    public float getSpeed() {
-        return speed;
-    }
-    public void setRestMax(int restMax) {
-        this.restMax = restMax;
-    }
-    public int getRestMax() {
-        return restMax;
-    }
+    
     Animal() {
         
     }
