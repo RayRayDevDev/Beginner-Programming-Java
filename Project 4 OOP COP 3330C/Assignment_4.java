@@ -81,7 +81,7 @@ class Main {
         Animal[] animalArray =  new Animal[2];
 
         for(i = 0; i < animalArray.length; i++) {
-    out.print("\nHowdy! Welcome to the amazing race between two animals! Please enter the type of animal you want to race: ");
+        out.print("\nHowdy! Welcome to the amazing race between two animals! Please enter the type of animal you want to race: ");
         animalName =  userInput.next();
         newAnimal.setName(animalName);
 
@@ -106,7 +106,7 @@ class Main {
         newAnimal.setRestMax(animalRestMax);
 
         animalArray[i] = new Animal(newAnimal.getName(), newAnimal.getPosition(), newAnimal.getSpeed(), newAnimal.getRestMax());
-        
+
         }
     }
 }
