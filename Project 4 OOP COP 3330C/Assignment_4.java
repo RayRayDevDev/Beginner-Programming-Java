@@ -1,5 +1,6 @@
 import static java.lang.System.out;
 
+import java.util.Random;
 import java.util.Scanner;
 
 class Animal implements Runnable {
@@ -8,8 +9,9 @@ class Animal implements Runnable {
     private float position = 0;  //The animal's position.
     private float speed = 0;  //The animal's speed.
     private int restMax = 0;  //The maxium amount (in ms) the animal is ever allowed to rest.
-    private long randomRest;  //Determine's the random amount of time (up to the restMax) the animal may rest each time called.
     private boolean winner = false;  //Initial condition; nobody has raced, therefore nobody has won yet. 
+    Scanner userInput = new Scanner(System.in);
+    int i;
 
     public void setName(String name) {
         this.name = name;
@@ -38,17 +40,13 @@ class Animal implements Runnable {
     Animal() {
         
     }
-    
-    Animal(String threadName) {
-        name = threadName;
-        out.println(name + " has been created successfully!");
-    }
 
     Animal(String animalName, float animalStartPos, float animalStartSpeed, int animalRestMax) {
         name = animalName;
         position = animalStartPos;
         speed = animalStartSpeed;
         restMax = animalRestMax;
+        out.println(name + " has been created successfully!");
     }
 
     public void start() {
@@ -57,10 +55,23 @@ class Animal implements Runnable {
             animalThread = new Thread(this, name);
             animalThread.start();
         }
+        else animalThread.start();
     }
 
     public void run() {
+        for(i = 0; i >= 100; i++) {
+            try {
+            position += speed;
+            out.println("\nThe current animal, " + name + " is currently at position: " + position + " and is moving at a speed of " + speed + ".\n");
+            Random random = new Random();
+            int randomRest = random.nextInt(restMax) + 1;
+            Thread.sleep(randomRest);
+            }
 
+            catch (InterruptedException e) {
+                out.println(e.getMessage());
+            }
+        }
     }
     
 }
@@ -69,44 +80,12 @@ class Main {
 
     public static void main(String[] args) {
         
-    Scanner userInput = new Scanner(System.in);
 
-    String animalName;
-    float animalStartPos;
-    float animalStartSpeed;
-    int animalRestMax;
-    int i;
+        Animal firstAnimal = new Animal("rabbit", 0, 5, 150);
+        Animal secondAnimal =  new Animal("turtle", 0, 3, 100);
+        firstAnimal.start();
+        secondAnimal.start();
 
-        Animal newAnimal = new Animal();
-        Animal[] animalArray =  new Animal[2];
 
-        for(i = 0; i < animalArray.length; i++) {
-        out.print("\nHowdy! Welcome to the amazing race between two animals! Please enter the type of animal you want to race: ");
-        animalName =  userInput.next();
-        newAnimal.setName(animalName);
-
-        out.print("Please enter the animal's starting position in the format: xx.xx where 0 is the beginning of the race and 100 is the end: ");
-        animalStartPos = userInput.nextFloat ();
-            if(animalStartPos < 0 || animalStartPos > 100) {
-             out.println("The Animal's starting position CANNOT be less than 0 or more than 100! Please try again!"); 
-                System.exit(1);
-        }
-        newAnimal.setPosition(animalStartPos);
-
-        out.print("Great! Now, please enter the Animal's speed in the format of xx.xx. Values can be from .25 to 10: ");
-        animalStartSpeed = userInput.nextFloat();
-        if(animalStartSpeed < 0.25 || animalStartSpeed > 10) {
-            out.println("The Animal's speed CANNOT be less than 0.25 or more than 10! Please try again!");
-            System.exit(2);
-        }
-        newAnimal.setSpeed(animalStartSpeed);
-
-        out.print("Please enter the number of milliseconds the animal should rest between sprints using ONLY whole numbers: ");
-        animalRestMax = userInput.nextInt();
-        newAnimal.setRestMax(animalRestMax);
-
-        animalArray[i] = new Animal(newAnimal.getName(), newAnimal.getPosition(), newAnimal.getSpeed(), newAnimal.getRestMax());
-
-        }
     }
 }
