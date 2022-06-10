@@ -1,5 +1,7 @@
 import static java.lang.System.out;
 
+import java.util.Scanner;
+
 class Animal implements Runnable {
     private Thread animalThread; //Thread for the animal being instantiated.
     private String name = null;  //The animal's name and also the thread's name.
@@ -67,12 +69,33 @@ class Main {
 
     public static void main(String[] args) {
         
-        animalName.getName();
-        animalStartPos.getPosition();
-        animalStartSpeed.getSpeed();
-        animalRestMax.getRestMax();
+    Scanner userInput = new Scanner(System.in);
+
+    String animalName;
+    float animalStartPos;
+    float animalStartSpeed;
+    int animalRestMax;
+
+    out.print("\nHowdy! Welcome to the amazing race between two animals! Please enter the type of animal you want to race: ");
+        animalName =  userInput.next();
+        out.print("Please enter the animal's starting position in the format: xx.xx where 0 is the beginning of the race and 100 is the end: ");
+        animalStartPos = userInput.nextFloat ();
+            if(animalStartPos < 0 || animalStartPos > 100) {
+             out.println("The Animal's starting position CANNOT be less than 0 or more than 100! Please try again!"); 
+                System.exit(1);
+        }
+        out.print("Great! Now, please enter the Animal's speed in the format of xx.xx. Values can be from .25 to 10: ");
+        animalStartSpeed = userInput.nextFloat();
+        if(animalStartSpeed < 0.25 || animalStartSpeed > 10) {
+            out.println("The Animal's speed CANNOT be less than 0.25 or more than 10! Please try again!");
+            System.exit(2);
+        }
+        out.print("Please enter the number of seconds the animal should rest between sprints using ONLY whole numbers: ");
+        animalRestMax = userInput.nextInt() / 1000;
 
         Animal rabbit = new Animal(animalName, animalStartPos, animalStartSpeed, animalRestMax);
+        Animal.setName(animalName); 
+
         Animal turtle = new Animal(animalName, animalStartPos, animalStartSpeed, animalRestMax);
 
     }
