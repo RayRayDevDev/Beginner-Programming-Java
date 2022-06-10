@@ -11,10 +11,11 @@ class Animal implements Runnable {
     private int restMax = 0;  //The maxium amount (in ms) the animal is ever allowed to rest.
     private boolean winner = false;  //Initial condition; nobody has raced, therefore nobody has won yet. 
     Scanner userInput = new Scanner(System.in);
-    int i;
-    
+    int i = 0;
+
     Animal() {
-        
+        this.animalThread = new Thread(this);
+        this.animalThread.start();
     }
 
     Animal(String animalName, float animalStartPos, float animalStartSpeed, int animalRestMax) {
@@ -24,18 +25,9 @@ class Animal implements Runnable {
         restMax = animalRestMax;
         out.println(name + " has been created successfully!");
     }
-
-    public void start() {
-        out.println(name + " is being instantiated!");
-        if(animalThread == null) {
-            animalThread = new Thread(this, name);
-            animalThread.start();
-        }
-        else animalThread.start();
-    }
-
+    
     public void run() {
-        for(i = 0; i >= 100; i++) {
+        while(position <= 100) {
             try {
             position += speed;
             out.println("\nThe current animal, " + name + " is currently at position: " + position + " and is moving at a speed of " + speed + ".\n");
@@ -49,19 +41,23 @@ class Animal implements Runnable {
             }
         }
     }
+
+      public void start() {
+        
+      }
     
 }
 
 class Main {
 
     public static void main(String[] args) {
-        
-
         Animal firstAnimal = new Animal("rabbit", 0, 5, 150);
-        Animal secondAnimal =  new Animal("turtle", 0, 3, 100);
-        firstAnimal.start();
-        secondAnimal.start();
-
-
-    }
+        Animal secondAnimal = new Animal("turtle", 0, 3, 100);
+        Thread first = new Thread(firstAnimal);
+        Thread second = new Thread(secondAnimal);
+        first.setName("firstAnimal");
+        second.setName("secondAnimal");
+        first.start();
+        second.start();
+        }
 }
