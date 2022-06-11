@@ -8,7 +8,7 @@ class Animal implements Runnable {
     private float position = 0;  //The animal's position.
     private float speed = 0;  //The animal's speed.
     private int restMax = 0;  //The maxium amount (in ms) the animal is ever allowed to rest.
-    private boolean winner = false;  //Initial condition; nobody has raced, therefore nobody has won yet. 
+    private static boolean winner = false;  //Initial condition; nobody has raced, therefore nobody has won yet. 
     private int randomRest = 0;
     private Food animalFood;
     Scanner userInput = new Scanner(System.in);
@@ -24,7 +24,7 @@ class Animal implements Runnable {
     
     public void run() {
 
-        while(position <= 100) {
+        while(winner == false) {
             try{         
                  if(position == 0) {
                 
@@ -44,7 +44,7 @@ class Animal implements Runnable {
                     
                     if(winner) {
                         out.println(name + " is the winner!");
-                        System.exit(0);
+                        break;
                     }
                 }
                 
@@ -58,16 +58,16 @@ class Animal implements Runnable {
 }
 
 class Food {
-    public synchronized void eat(String name, int restMax ) {
+    public /*synchronized*/ void eat(String name, int restMax ) {
         Random random = new Random();
         int randomEat = random.nextInt(restMax);
         try { 
         if(name == "rabbit") {
-            randomEat = randomEat * 10;
-            out.println(name + " is currently eating and will be doing so for " + randomEat + " milliseconds!");
+            randomEat = randomEat * 2;
+            out.println(name + " is currently eating and will be doing so for " + randomEat + " milliseconds!\n");
             Thread.sleep(randomEat);
         } else {
-        out.println(name + " is currently eating and will be doing so for " + randomEat + " milliseconds!");
+        out.println(name + " is currently eating and will be doing so for " + randomEat + " milliseconds!\n");
         Thread.sleep(randomEat);
         }
     } catch (InterruptedException e) {
