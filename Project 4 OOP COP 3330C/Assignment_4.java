@@ -25,7 +25,7 @@ class Animal implements Runnable {
             try{         
                  if(position == 0) {
                 
-                out.println("\nThe current animal, " + name + ", is at position: " + position + " and is moving at a speed of " + speed + " and is about to rest for " + randomRest + " milliseconds!\n");
+                out.println("\nThe current animal, " + name + ", is at position: " + position + " and is moving at a speed of " + speed + ".\n");
                 position += speed;
                 }    
                     else{
