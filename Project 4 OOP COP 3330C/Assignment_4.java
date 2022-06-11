@@ -52,7 +52,6 @@ class Animal implements Runnable {
             } catch (InterruptedException e) {
                 out.println(e.getMessage());
             }
-
         }
     }
 }
