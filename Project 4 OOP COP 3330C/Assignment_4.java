@@ -8,6 +8,7 @@ class Animal implements Runnable {
     private float speed = 0;  //The animal's speed.
     private int restMax = 0;  //The maxium amount (in ms) the animal is ever allowed to rest.
     private boolean winner = false;  //Initial condition; nobody has raced, therefore nobody has won yet. 
+    private int randomRest = 0;
     Scanner userInput = new Scanner(System.in);
 
     Animal(String animalName, float animalStartPos, float animalStartSpeed, int animalRestMax) {
@@ -21,26 +22,34 @@ class Animal implements Runnable {
     public void run() {
 
         while(position <= 100) {
-            try {
-            position += speed;
-            Random random = new Random();
-            int randomRest = random.nextInt(restMax) + 1;
-            out.println("\nThe current animal, " + name + ", is currently at position: " + position + " and is moving at a speed of " + speed + " and just rested for " + randomRest + " milliseconds!\n");
-            Thread.sleep(randomRest);
-            
-            if(position >= 100) {
-                winner = true;
+            try{         
+                 if(position == 0) {
                 
-                if(winner) {
-                    out.println(name + " is the winner!");
-                    System.exit(0);
+                out.println("\nThe current animal, " + name + ", is at position: " + position + " and is moving at a speed of " + speed + " and is about to rest for " + randomRest + " milliseconds!\n");
+                position += speed;
+                }    
+                    else{
+                position += speed;
+                Random random = new Random();
+                randomRest = random.nextInt(restMax) + 1;
+                out.println("\nThe current animal, " + name + ", is at position: " + position + " and is moving at a speed of " + speed + " and is about to rest for " + randomRest + " milliseconds!\n");
+                Thread.sleep(randomRest);
+                
+                if(position >= 100) {
+                    winner = true;
+                    
+                    if(winner) {
+                        out.println(name + " is the winner!");
+                        System.exit(0);
+                    }
                 }
+                
             }
-            }
-            catch (InterruptedException e) {
-                out.println(e.getMessage());
-            }
+        } catch (InterruptedException e) {
+            out.println(e.getMessage());
         }
+  
+    }
     }
 }
 
