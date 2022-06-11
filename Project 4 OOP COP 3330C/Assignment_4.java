@@ -1,19 +1,16 @@
 import static java.lang.System.out;
-
-import java.lang.Thread.State;
 import java.util.Random;
-import java.util.Scanner;
 
 class Animal implements Runnable {
     private String name = null; // The animal's name and also the thread's name.
     private float position = 0; // The animal's position.
-    private float speed = 0; // The animal's speed.
+    private double speed = 0; // The animal's speed.
     private int restMax = 0; // The maxium amount (in ms) the animal is ever allowed to rest.
-    private static boolean winner = false; // Initial condition; nobody has raced, therefore nobody has won yet.
+    private static boolean winner = false; // Initial condition; nobody has raced, therefore nobody has won yet. Static to prevent changes once a thread changes its value.
     private int randomRest = 0;  //Variable to store RNG's result.
     private Food animalFood;  //Instance of the "Food" class for the two threads to share.
 
-    Animal(String animalName, float animalStartPos, float animalStartSpeed, int animalRestMax, Food animalFood) {  //Constructor for each Animal object.
+    Animal(String animalName, float animalStartPos, Double animalStartSpeed, int animalRestMax, Food animalFood) {  //Constructor for each Animal object.
         name = animalName;
         position = animalStartPos;
         speed = animalStartSpeed;
@@ -79,8 +76,8 @@ class Main {
 
     public static void main(String[] args) {
         Food animalFood = new Food();
-        Animal firstAnimal = new Animal("rabbit", 0, 5, 150, animalFood);
-        Animal secondAnimal = new Animal("turtle", 0, 3, 100, animalFood);
+        Animal firstAnimal = new Animal("rabbit", 0, 5.57, 150, animalFood);
+        Animal secondAnimal = new Animal("turtle", 0, 3.29, 100, animalFood);
         Thread first = new Thread(firstAnimal);
         Thread second = new Thread(secondAnimal);
         first.setName("firstAnimal");
