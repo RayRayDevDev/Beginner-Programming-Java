@@ -1,16 +1,19 @@
 import static java.lang.System.out;
 import java.util.Random;
 
+//Created by Cole Stanley (RäDev) for COP 3330C
+//Created with JDK 18.0.1.1
+
 class Animal implements Runnable {
     private String name = null; // The animal's name and also the thread's name.
-    private float position = 0; // The animal's position.
+    private double position = 0; // The animal's position.
     private double speed = 0; // The animal's speed.
     private int restMax = 0; // The maxium amount (in ms) the animal is ever allowed to rest.
     private static boolean winner = false; // Initial condition; nobody has raced, therefore nobody has won yet. Static to prevent changes once a thread changes its value.
     private int randomRest = 0;  //Variable to store RNG's result.
     private Food animalFood;  //Instance of the "Food" class for the two threads to share.
 
-    Animal(String animalName, float animalStartPos, Double animalStartSpeed, int animalRestMax, Food animalFood) {  //Constructor for each Animal object.
+    Animal(String animalName, Double animalStartPos, Double animalStartSpeed, int animalRestMax, Food animalFood) {  //Constructor for each Animal object.
         name = animalName;
         position = animalStartPos;
         speed = animalStartSpeed;
@@ -20,13 +23,14 @@ class Animal implements Runnable {
     }
 
     public void run() {
-        while (!winner) {  //While winner is NOT true, loop.
-            try {  //Exception handler so the compiler decides to play nicely.
+        while (!winner) {  //While winner is NOT true, loop. Plays more nicely with threads as whichever thread stops first will alter the "winner" variable, causing the other thread to terminate too.
+            try {  //Exception handler so the compiler plays nicely.
                 if (position == 0) {  //Initial condition with a different message because I thought it looked weird with the "rest" syntax that shows after every iteration hereafter. 
                     out.println(name + " has joined the race!");
                     out.println("\nThe current animal, " + name + ", is beginning the race at position: " + position
-                            + " and will be moving at a speed of " + speed + "!\n");
+                            + "!\n");
                     position += speed;  //Increment position by the value of the Animal's speed.
+                    out.println(name + " has moved to position: " + position + "!\n");
                 } else {
                     position += speed;  //Increment the Animal's position by the value of the Animal's speed.
                     Random random = new Random();  //New RNG object for the Thread.Sleep() method.
@@ -38,7 +42,7 @@ class Animal implements Runnable {
                     if (position <= 99.99) {  //As the user may enter any value float for speed, position--continue eating and sleeping unless the value of position is above 99.99. During debugging, the winning thread would complete another loop, and this finally fixed it.
                         animalFood.eat(name, restMax);  //Pass the Animal's name and the restMax for more compact code.
                         Thread.sleep(randomRest);  //Sleep on randomRest.
-                    } else {  //Winning condition.
+                    } else {  //Winning condition. "Else" statement to ensure that it does not execute until the above "if" statement returns false. 
                         if (position >= 100) {
                             winner = true;  //Set winner to true, stopping the loop for all threads.
                             out.println(name + " is the winner!");
@@ -75,14 +79,14 @@ class Food {  //Shared "Food" class per requirements.
 class Main {
 
     public static void main(String[] args) {
-        Food animalFood = new Food();
-        Animal firstAnimal = new Animal("rabbit", 0, 5.57, 150, animalFood);
-        Animal secondAnimal = new Animal("turtle", 0, 3.29, 100, animalFood);
-        Thread first = new Thread(firstAnimal);
-        Thread second = new Thread(secondAnimal);
-        first.setName("firstAnimal");
+        Food animalFood = new Food();  //New "Food" object.
+        Animal firstAnimal = new Animal("rabbit", 0.0, 5.0, 150, animalFood);  //New Animal named "Rabbit."
+        Animal secondAnimal = new Animal("turtle", 0.0, 3.0, 100, animalFood);  //New Animal named "Turtle."
+        Thread first = new Thread(firstAnimal);  //New Thread containing the firstAnimal Object.
+        Thread second = new Thread(secondAnimal);  //New Thread containing the secondAnimal Object.
+        first.setName("firstAnimal");  //Set both threads' names.
         second.setName("secondAnimal");
-        first.start();
+        first.start();  //Start both threads, thus invoking the run() method in each respective thread thewreafter. 
         second.start();
     }
 }
