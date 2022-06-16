@@ -1,5 +1,9 @@
 import static java.lang.System.out;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public abstract class Vehicle implements Runnable, MustImplement {
 protected String vehicleName;
 protected Double position;
@@ -8,6 +12,7 @@ protected Double Avgspeed;
 protected Double topSpeed;
 protected Double fuelOrElectricityCapacity;
 protected int refuelTime;
+protected String[] resultsArray;
 
 Vehicle(String name, Double position, Double acceleration, Double avgSpeed, Double topSpeed, Double capacity, int refuelTime) {
 
@@ -19,6 +24,11 @@ Vehicle(String name, Double position, Double acceleration, Double avgSpeed, Doub
     fuelOrElectricityCapacity = capacity;
     this.refuelTime = refuelTime;
 
+}
+@Override
+public void run() {
+    // TODO Auto-generated method stub
+    
 }
 
 
@@ -41,6 +51,7 @@ public class VolkswagenTiguan extends Vehicle {
         super(name, position, acceleration, avgSpeed, topSpeed, capacity, refuelTime);
         //TODO Auto-generated constructor stub
     }
+    //Second Slowest of 2021.
 
 }
 
@@ -51,6 +62,7 @@ public class NissanSentra extends Vehicle {
         super(name, position, acceleration, avgSpeed, topSpeed, capacity, refuelTime);
         //TODO Auto-generated constructor stub
     }
+    //Third Slowest of 2021.
 
 }
 
@@ -61,7 +73,7 @@ public class BMWM8CompetitionGranCoupe extends Vehicle {
         super(name, position, acceleration, avgSpeed, topSpeed, capacity, refuelTime);
         //TODO Auto-generated constructor stub
     }
-
+    //Fourth Fastest.
 }
 
 public class LamborghiniHuracanSTO extends Vehicle {
@@ -71,6 +83,7 @@ public class LamborghiniHuracanSTO extends Vehicle {
         super(name, position, acceleration, avgSpeed, topSpeed, capacity, refuelTime);
         //TODO Auto-generated constructor stub
     }
+    //Third Fastest.
 
 }
 
@@ -81,7 +94,8 @@ public class Porsche911TurboSCabriolet extends Vehicle {
         super(name, position, acceleration, avgSpeed, topSpeed, capacity, refuelTime);
         //TODO Auto-generated constructor stub
     }
-
+    //Second Fastest.
+    
 }
 
 public class TeslaModelSPlaid extends Vehicle {
@@ -91,6 +105,7 @@ public class TeslaModelSPlaid extends Vehicle {
         super(name, position, acceleration, avgSpeed, topSpeed, capacity, refuelTime);
         //TODO Auto-generated constructor stub
     }
+    //First Fastest.
 
 }
 
@@ -107,9 +122,29 @@ public interface MustImplement {
 
 
 class WriteResultsToFile {
+    public static void createFile() {
+        try{
+        File raceResults = new File(raceResults.txt);
+
+        if(raceResults.createNewFile()) {
+            out.println("Race results successfully saved!");
+        }
+
+        } catch(IOException e) {
+            out.println("An error occured: ");
+            e.printStackTrace();
+        }
+    }
+    public static void writeToFile(String[] resultsArray) {
+        FileWriter writeRaceResults = new FileWriter(raceResults.txt);
+        writeRaceResults.write(resultsArray);
+        out.println("Race results successfully saved!");
+    }
 
 }
 
 class Main {
-    
+    public static void main(String[] args) {
+        
+    }
 }
