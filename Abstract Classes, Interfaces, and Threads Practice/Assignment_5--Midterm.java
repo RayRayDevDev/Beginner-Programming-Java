@@ -127,7 +127,7 @@ class WriteResultsToFile {
             }
 
         } catch (IOException e) {
-            out.println("An error occured: ");
+            out.print("An error occured: ");
             e.printStackTrace();
         }
     }
