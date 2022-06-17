@@ -7,20 +7,21 @@ public abstract class Vehicle implements Runnable, MustImplement {
     protected String vehicleName;
     protected Double position;
     protected Double accelerationTime;
-    protected Double Avgspeed;
-    protected Double topSpeed;
+    protected Double avgspeed;
+    protected Double timeToSixty;
     protected Double fuelOrElectricityCapacity;
     protected int refuelTime;
+    protected boolean winner = false;
     protected String[] resultsArray;
 
-    Vehicle(String name, Double position, Double acceleration, Double avgSpeed, Double topSpeed, Double capacity,
+    Vehicle(String name, Double position, Double acceleration, Double avgSpeed, Double timeToSixty, Double capacity,
             int refuelTime) {
 
         vehicleName = name;
         this.position = position;
         accelerationTime = acceleration;
-        this.Avgspeed = avgSpeed;
-        this.topSpeed = topSpeed;
+        this.avgspeed = avgSpeed;
+        this.timeToSixty = timeToSixty;
         fuelOrElectricityCapacity = capacity;
         this.refuelTime = refuelTime;
 
@@ -28,7 +29,34 @@ public abstract class Vehicle implements Runnable, MustImplement {
 
     @Override
     public void run() {
-        // TODO Auto-generated method stub
+        do {
+            try {
+                if(position == 0) {
+                    out.println(vehicleName + " has joined the race!");
+                    out.println("\nThe current vehicle: " + vehicleName + " is at the starting line!\n");
+                    for(int i = 5; i != 0; i--) {
+                        out.println(i);
+                        if(i == 0) {
+                            out.println("\n\nGo!\n\n");
+                            position += timeToSixty;
+                        }
+                    }
+                }
+                else {
+                    double d; //Distance variable
+                    double r; //Rate variable
+                    double t; //Time variable
+                    while(fuelOrElectricityCapacity != 0 && !winner) {
+                        if(position <= 99.99) {
+
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                //TODO: handle exception
+            }
+
+        } while(!winner);
 
     }
 
@@ -36,9 +64,9 @@ public abstract class Vehicle implements Runnable, MustImplement {
 
 public class ToyotaCorollaCross extends Vehicle {
 
-    ToyotaCorollaCross(String name, Double position, Double acceleration, Double avgSpeed, Double topSpeed,
+    ToyotaCorollaCross(String name, Double position, Double acceleration, Double avgSpeed, Double timeToSixty,
             Double capacity, int refuelTime) {
-        super(name, position, acceleration, avgSpeed, topSpeed, capacity, refuelTime);
+        super(name, position, acceleration, avgSpeed, timeToSixty, capacity, refuelTime);
         // TODO Auto-generated constructor stub
     }
     // 2021 Toyota Corolla Cross--One of slowest in 2021.
@@ -46,9 +74,9 @@ public class ToyotaCorollaCross extends Vehicle {
 
 public class VolkswagenTiguan extends Vehicle {
 
-    VolkswagenTiguan(String name, Double position, Double acceleration, Double avgSpeed, Double topSpeed,
+    VolkswagenTiguan(String name, Double position, Double acceleration, Double avgSpeed, Double timeToSixty,
             Double capacity, int refuelTime) {
-        super(name, position, acceleration, avgSpeed, topSpeed, capacity, refuelTime);
+        super(name, position, acceleration, avgSpeed, timeToSixty, capacity, refuelTime);
         // TODO Auto-generated constructor stub
     }
     // Second Slowest of 2021.
@@ -57,9 +85,9 @@ public class VolkswagenTiguan extends Vehicle {
 
 public class NissanSentra extends Vehicle {
 
-    NissanSentra(String name, Double position, Double acceleration, Double avgSpeed, Double topSpeed, Double capacity,
+    NissanSentra(String name, Double position, Double acceleration, Double avgSpeed, Double timeToSixty, Double capacity,
             int refuelTime) {
-        super(name, position, acceleration, avgSpeed, topSpeed, capacity, refuelTime);
+        super(name, position, acceleration, avgSpeed, timeToSixty, capacity, refuelTime);
         // TODO Auto-generated constructor stub
     }
     // Third Slowest of 2021.
@@ -68,9 +96,9 @@ public class NissanSentra extends Vehicle {
 
 public class BMWM8CompetitionGranCoupe extends Vehicle {
 
-    BMWM8CompetitionGranCoupe(String name, Double position, Double acceleration, Double avgSpeed, Double topSpeed,
+    BMWM8CompetitionGranCoupe(String name, Double position, Double acceleration, Double avgSpeed, Double timeToSixty,
             Double capacity, int refuelTime) {
-        super(name, position, acceleration, avgSpeed, topSpeed, capacity, refuelTime);
+        super(name, position, acceleration, avgSpeed, timeToSixty, capacity, refuelTime);
         // TODO Auto-generated constructor stub
     }
     // Fourth Fastest.
@@ -78,9 +106,9 @@ public class BMWM8CompetitionGranCoupe extends Vehicle {
 
 public class LamborghiniHuracanSTO extends Vehicle {
 
-    LamborghiniHuracanSTO(String name, Double position, Double acceleration, Double avgSpeed, Double topSpeed,
+    LamborghiniHuracanSTO(String name, Double position, Double acceleration, Double avgSpeed, Double timeToSixty,
             Double capacity, int refuelTime) {
-        super(name, position, acceleration, avgSpeed, topSpeed, capacity, refuelTime);
+        super(name, position, acceleration, avgSpeed, timeToSixty, capacity, refuelTime);
         // TODO Auto-generated constructor stub
     }
     // Third Fastest.
@@ -89,9 +117,9 @@ public class LamborghiniHuracanSTO extends Vehicle {
 
 public class Porsche911TurboSCabriolet extends Vehicle {
 
-    Porsche911TurboSCabriolet(String name, Double position, Double acceleration, Double avgSpeed, Double topSpeed,
+    Porsche911TurboSCabriolet(String name, Double position, Double acceleration, Double avgSpeed, Double timeToSixty,
             Double capacity, int refuelTime) {
-        super(name, position, acceleration, avgSpeed, topSpeed, capacity, refuelTime);
+        super(name, position, acceleration, avgSpeed, timeToSixty, capacity, refuelTime);
         // TODO Auto-generated constructor stub
     }
     // Second Fastest.
@@ -100,9 +128,9 @@ public class Porsche911TurboSCabriolet extends Vehicle {
 
 public class TeslaModelSPlaid extends Vehicle {
 
-    TeslaModelSPlaid(String name, Double position, Double acceleration, Double avgSpeed, Double topSpeed,
+    TeslaModelSPlaid(String name, Double position, Double acceleration, Double avgSpeed, Double timeToSixty,
             Double capacity, int refuelTime) {
-        super(name, position, acceleration, avgSpeed, topSpeed, capacity, refuelTime);
+        super(name, position, acceleration, avgSpeed, timeToSixty, capacity, refuelTime);
         // TODO Auto-generated constructor stub
     }
     // First Fastest.
@@ -123,7 +151,7 @@ class WriteResultsToFile {
             File raceResults = new File(raceResults.txt);
 
             if (raceResults.createNewFile()) {
-                out.println("Race results successfully saved!");
+                out.println("Race results file successfully created!");
             }
 
         } catch (IOException e) {
@@ -142,6 +170,7 @@ class WriteResultsToFile {
 
 class Main {
     public static void main(String[] args) {
+        
 
     }
 }
