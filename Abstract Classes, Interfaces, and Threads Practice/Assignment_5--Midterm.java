@@ -72,7 +72,6 @@ public abstract class Vehicle implements Runnable, MustImplement {
         while(currentFuelLevel < fuelOrElectricityCapacity) {
         Thread.sleep(refuelTime);
         currentFuelLevel += 5;
-        if(currentFuelLevel )
         }
     }
 
