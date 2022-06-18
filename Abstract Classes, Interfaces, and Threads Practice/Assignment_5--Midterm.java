@@ -4,12 +4,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
 
-public abstract class Vehicle implements Runnable, MustImplement {
+ abstract class Vehicle implements Runnable, MustImplement {
     protected String vehicleName = null;
     protected Double position = 0.0;
     protected Double speed;
     protected int fuelOrElectricityCapacity;
-    protected Double currentFuelLevel;
+    protected int currentFuelLevel;
     protected int refuelTime; // random amount of time to refuel.
     protected static boolean winner = false;
 
@@ -19,6 +19,7 @@ public abstract class Vehicle implements Runnable, MustImplement {
         this.position = position;
         this.speed = speed;
         fuelOrElectricityCapacity = capacity;
+        currentFuelLevel = capacity;
 
     }
 
@@ -31,16 +32,17 @@ public abstract class Vehicle implements Runnable, MustImplement {
                     out.println("\nThe current vehicle: " + vehicleName + " is at the starting line!\n");
                     for (int i = 5; i != 0; i--) {
                         out.println(i);
-                        if (i == 0) {
+                        if (i == 1) {
                             out.println("\n\nGo!\n\n");
                             position += speed; // Easier way than doing complex math.
                             out.println(vehicleName + " is now at position " + position + "!");
                         }
                     }
-                } else {
+                }
 
                     if (position <= 99.99 && currentFuelLevel != 0 && winner != true) { // Normal race loop.
                         position += speed;
+                        currentFuelLevel -= 1;
                         out.println(vehicleName + " is currently at position " + position
                                 + " and is moving at a speed of " + speed + " and currently has "
                                 + currentFuelLevel + " gallons/KwH in fuel left!");
@@ -57,27 +59,31 @@ public abstract class Vehicle implements Runnable, MustImplement {
                         out.println(vehicleName + " is the winner!");
                         System.exit(0);
                     }
-                }
             } catch (Exception e) {
-                // TODO: handle exception
+                out.println(e.getMessage());
             }
 
         } while (!winner);
 
     }
 
-    protected synchronized Double refuel() {
+    protected synchronized void refuel() {
         Random r = new Random();
         refuelTime = r.nextInt(fuelOrElectricityCapacity * 5);
+        try{
         while(currentFuelLevel < fuelOrElectricityCapacity) {
         Thread.sleep(refuelTime);
-        currentFuelLevel += 5;
+        currentFuelLevel += 1;
+        }
+        } catch(Exception e) {
+            out.println(e.getMessage());
         }
     }
+        
+    }
 
-}
 
-public class ToyotaCorollaCross extends Vehicle {
+ class ToyotaCorollaCross extends Vehicle {
 
     ToyotaCorollaCross(String name, Double position, Double speed, int capacity) {
         super(name, position, speed, capacity);
@@ -86,7 +92,7 @@ public class ToyotaCorollaCross extends Vehicle {
     // 2022 Toyota Corolla Cross--One of slowest in 2021.
 }
 
-public class VolkswagenTiguan extends Vehicle {
+ class VolkswagenTiguan extends Vehicle {
 
     VolkswagenTiguan(String name, Double position, Double speed,
             int capacity) {
@@ -97,7 +103,7 @@ public class VolkswagenTiguan extends Vehicle {
 
 }
 
-public class NissanSentra extends Vehicle {
+ class NissanSentra extends Vehicle {
 
     NissanSentra(String name, Double position, Double speed, int capacity) {
         super(name, position, acceleration, avgSpeed, speed, capacity);
@@ -107,7 +113,7 @@ public class NissanSentra extends Vehicle {
 
 }
 
-public class BMWM8CompetitionGranCoupe extends Vehicle {
+ class BMWM8CompetitionGranCoupe extends Vehicle {
 
     BMWM8CompetitionGranCoupe(String name, Double position, Double speed,
             int capacity) {
@@ -117,7 +123,7 @@ public class BMWM8CompetitionGranCoupe extends Vehicle {
     // Fourth Fastest.
 }
 
-public class LamborghiniHuracanSTO extends Vehicle {
+ class LamborghiniHuracanSTO extends Vehicle {
 
     LamborghiniHuracanSTO(String name, Double position, Double speed,
             Double capacity) {
@@ -128,7 +134,7 @@ public class LamborghiniHuracanSTO extends Vehicle {
 
 }
 
-public class Porsche911TurboSCabriolet extends Vehicle {
+ class Porsche911TurboSCabriolet extends Vehicle {
 
     Porsche911TurboSCabriolet(String name, Double position, Double speed,
             int capacity) {
@@ -139,7 +145,7 @@ public class Porsche911TurboSCabriolet extends Vehicle {
 
 }
 
-public class TeslaModelSPlaid extends Vehicle {
+ class TeslaModelSPlaid extends Vehicle {
 
     TeslaModelSPlaid(String name, Double position, Double speed,
             int capacity) {
@@ -150,7 +156,7 @@ public class TeslaModelSPlaid extends Vehicle {
 
 }
 
-public interface MustImplement {
+ interface MustImplement {
 
 }
 
@@ -179,6 +185,9 @@ class WriteResultsToFile {
 
 class Main {
     public static void main(String[] args) {
+        ToyotaCorollaCross toyoCross = new ToyotaCorollaCross("2022 Toyota Corolla Cross", 0.0, 1.0, 12); //818.4 ft to go 0-60mph in 9.3 seconds. 9.3/100
+        Thread first = new Thread(toyoCross);
+        first.start(); 
 
     }
 }
