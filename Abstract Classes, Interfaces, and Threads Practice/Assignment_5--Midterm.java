@@ -2,28 +2,22 @@ import static java.lang.System.out;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Random;
 
 public abstract class Vehicle implements Runnable, MustImplement {
-    protected String vehicleName;
-    protected Double position;
-    protected Double accelerationTime;
-    protected Double avgspeed;
-    protected Double timeToSixty;
+    protected String vehicleName = null;
+    protected Double position = 0.0;
+    protected Double speed;
     protected Double fuelOrElectricityCapacity;
-    protected int refuelTime;
-    protected boolean winner = false;
-    protected String[] resultsArray;
+    protected int refuelTime; // random amount of time to refuel.
+    protected static boolean winner = false;
 
-    Vehicle(String name, Double position, Double acceleration, Double avgSpeed, Double timeToSixty, Double capacity,
-            int refuelTime) {
+    Vehicle(String name, Double position, Double speed, Double capacity) {
 
         vehicleName = name;
         this.position = position;
-        accelerationTime = acceleration;
-        this.avgspeed = avgSpeed;
-        this.timeToSixty = timeToSixty;
+        this.speed = speed;
         fuelOrElectricityCapacity = capacity;
-        this.refuelTime = refuelTime;
 
     }
 
@@ -31,52 +25,69 @@ public abstract class Vehicle implements Runnable, MustImplement {
     public void run() {
         do {
             try {
-                if(position == 0) {
+                if (position == 0) {
                     out.println(vehicleName + " has joined the race!");
                     out.println("\nThe current vehicle: " + vehicleName + " is at the starting line!\n");
-                    for(int i = 5; i != 0; i--) {
+                    for (int i = 5; i != 0; i--) {
                         out.println(i);
-                        if(i == 0) {
+                        if (i == 0) {
                             out.println("\n\nGo!\n\n");
-                            position += timeToSixty;
+                            position += speed; // Easier way than doing complex math.
+                            out.println(vehicleName + " is now at position " + position + "!");
                         }
                     }
-                }
-                else {
-                    double d; //Distance variable
-                    double r; //Rate variable
-                    double t; //Time variable
-                    while(fuelOrElectricityCapacity != 0 && !winner) {
-                        if(position <= 99.99) {
+                } else {
 
-                        }
+                    if (position <= 99.99 && fuelOrElectricityCapacity != 0 && winner != true) { // Normal race loop.
+                        position += speed;
+                        out.println(vehicleName + " is currently at position " + position
+                                + " and is moving at a speed of " + speed + " and currently has "
+                                + fuelOrElectricityCapacity + " gallons/KwH in fuel left!");
+                    } else if (position <= 99.99 && fuelOrElectricityCapacity == 0 && winner != true) { // Condition for
+                                                                                                        // refueling.
+                        refuel();
+                    } else if (position <= 99.99 && fuelOrElectricityCapacity != 0 && winner == true) { // Condition if
+                                                                                                        // another
+                                                                                                        // thread has
+                                                                                                        // already won.
+                        break;
+                    } else if (position >= 100 && winner != true) { // Win condition.
+                        winner = true;
+                        out.println(vehicleName + " is the winner!");
+                        System.exit(0);
                     }
                 }
             } catch (Exception e) {
-                //TODO: handle exception
+                // TODO: handle exception
             }
 
-        } while(!winner);
+        } while (!winner);
 
+    }
+
+    protected synchronized Double refuel() {
+        Random r = new Random();
+        refuelTime = r.nextInt(fuelOrElectricityCapacity);
+        while(fuelOrElectricityCapacity != )
+        Thread.sleep(60000);  //5 gal/min avg as they are all using same pump in this simulation. One pump because it's more interesting. 
     }
 
 }
 
 public class ToyotaCorollaCross extends Vehicle {
 
-    ToyotaCorollaCross(String name, Double position, Double acceleration, Double avgSpeed, Double timeToSixty,
-            Double capacity, int refuelTime) {
-        super(name, position, acceleration, avgSpeed, timeToSixty, capacity, refuelTime);
+    ToyotaCorollaCross(String name, Double position, Double speed, Double capacity) {
+        super(name, position, speed, capacity);
         // TODO Auto-generated constructor stub
     }
-    // 2021 Toyota Corolla Cross--One of slowest in 2021.
+    // 2022 Toyota Corolla Cross--One of slowest in 2021.
 }
 
 public class VolkswagenTiguan extends Vehicle {
 
-    VolkswagenTiguan(String name, Double position, Double acceleration, Double avgSpeed, Double timeToSixty,
-            Double capacity, int refuelTime) {
-        super(name, position, acceleration, avgSpeed, timeToSixty, capacity, refuelTime);
+    VolkswagenTiguan(String name, Double position, Double speed,
+            Double capacity) {
+        super(name, position, acceleration, avgSpeed, speed, capacity);
         // TODO Auto-generated constructor stub
     }
     // Second Slowest of 2021.
@@ -85,9 +96,8 @@ public class VolkswagenTiguan extends Vehicle {
 
 public class NissanSentra extends Vehicle {
 
-    NissanSentra(String name, Double position, Double acceleration, Double avgSpeed, Double timeToSixty, Double capacity,
-            int refuelTime) {
-        super(name, position, acceleration, avgSpeed, timeToSixty, capacity, refuelTime);
+    NissanSentra(String name, Double position, Double speed, Double capacity) {
+        super(name, position, acceleration, avgSpeed, speed, capacity);
         // TODO Auto-generated constructor stub
     }
     // Third Slowest of 2021.
@@ -96,9 +106,9 @@ public class NissanSentra extends Vehicle {
 
 public class BMWM8CompetitionGranCoupe extends Vehicle {
 
-    BMWM8CompetitionGranCoupe(String name, Double position, Double acceleration, Double avgSpeed, Double timeToSixty,
-            Double capacity, int refuelTime) {
-        super(name, position, acceleration, avgSpeed, timeToSixty, capacity, refuelTime);
+    BMWM8CompetitionGranCoupe(String name, Double position, Double speed,
+            Double capacity) {
+        super(name, position, acceleration, avgSpeed, speed, capacity);
         // TODO Auto-generated constructor stub
     }
     // Fourth Fastest.
@@ -106,9 +116,9 @@ public class BMWM8CompetitionGranCoupe extends Vehicle {
 
 public class LamborghiniHuracanSTO extends Vehicle {
 
-    LamborghiniHuracanSTO(String name, Double position, Double acceleration, Double avgSpeed, Double timeToSixty,
-            Double capacity, int refuelTime) {
-        super(name, position, acceleration, avgSpeed, timeToSixty, capacity, refuelTime);
+    LamborghiniHuracanSTO(String name, Double position, Double speed,
+            Double capacity) {
+        super(name, position, acceleration, avgSpeed, speed, capacity);
         // TODO Auto-generated constructor stub
     }
     // Third Fastest.
@@ -117,9 +127,9 @@ public class LamborghiniHuracanSTO extends Vehicle {
 
 public class Porsche911TurboSCabriolet extends Vehicle {
 
-    Porsche911TurboSCabriolet(String name, Double position, Double acceleration, Double avgSpeed, Double timeToSixty,
-            Double capacity, int refuelTime) {
-        super(name, position, acceleration, avgSpeed, timeToSixty, capacity, refuelTime);
+    Porsche911TurboSCabriolet(String name, Double position, Double speed,
+            Double capacity) {
+        super(name, position, acceleration, avgSpeed, speed, capacity);
         // TODO Auto-generated constructor stub
     }
     // Second Fastest.
@@ -128,9 +138,9 @@ public class Porsche911TurboSCabriolet extends Vehicle {
 
 public class TeslaModelSPlaid extends Vehicle {
 
-    TeslaModelSPlaid(String name, Double position, Double acceleration, Double avgSpeed, Double timeToSixty,
-            Double capacity, int refuelTime) {
-        super(name, position, acceleration, avgSpeed, timeToSixty, capacity, refuelTime);
+    TeslaModelSPlaid(String name, Double position, Double speed,
+            Double capacity) {
+        super(name, position, acceleration, avgSpeed, speed, capacity);
         // TODO Auto-generated constructor stub
     }
     // First Fastest.
@@ -138,11 +148,7 @@ public class TeslaModelSPlaid extends Vehicle {
 }
 
 public interface MustImplement {
-    public void accelerate();
 
-    public void drive();
-
-    public void refuelOrRecharge();
 }
 
 class WriteResultsToFile {
@@ -170,7 +176,6 @@ class WriteResultsToFile {
 
 class Main {
     public static void main(String[] args) {
-        
 
     }
 }
