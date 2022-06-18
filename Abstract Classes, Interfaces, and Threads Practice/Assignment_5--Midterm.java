@@ -8,11 +8,12 @@ public abstract class Vehicle implements Runnable, MustImplement {
     protected String vehicleName = null;
     protected Double position = 0.0;
     protected Double speed;
-    protected Double fuelOrElectricityCapacity;
+    protected int fuelOrElectricityCapacity;
+    protected Double currentFuelLevel;
     protected int refuelTime; // random amount of time to refuel.
     protected static boolean winner = false;
 
-    Vehicle(String name, Double position, Double speed, Double capacity) {
+    Vehicle(String name, Double position, Double speed, int capacity) {
 
         vehicleName = name;
         this.position = position;
@@ -38,15 +39,15 @@ public abstract class Vehicle implements Runnable, MustImplement {
                     }
                 } else {
 
-                    if (position <= 99.99 && fuelOrElectricityCapacity != 0 && winner != true) { // Normal race loop.
+                    if (position <= 99.99 && currentFuelLevel != 0 && winner != true) { // Normal race loop.
                         position += speed;
                         out.println(vehicleName + " is currently at position " + position
                                 + " and is moving at a speed of " + speed + " and currently has "
-                                + fuelOrElectricityCapacity + " gallons/KwH in fuel left!");
-                    } else if (position <= 99.99 && fuelOrElectricityCapacity == 0 && winner != true) { // Condition for
+                                + currentFuelLevel + " gallons/KwH in fuel left!");
+                    } else if (position <= 99.99 && currentFuelLevel == 0 && winner != true) { // Condition for
                                                                                                         // refueling.
                         refuel();
-                    } else if (position <= 99.99 && fuelOrElectricityCapacity != 0 && winner == true) { // Condition if
+                    } else if (position <= 99.99 && currentFuelLevel != 0 && winner == true) { // Condition if
                                                                                                         // another
                                                                                                         // thread has
                                                                                                         // already won.
@@ -67,16 +68,19 @@ public abstract class Vehicle implements Runnable, MustImplement {
 
     protected synchronized Double refuel() {
         Random r = new Random();
-        refuelTime = r.nextInt(fuelOrElectricityCapacity);
-        while(fuelOrElectricityCapacity != )
-        Thread.sleep(60000);  //5 gal/min avg as they are all using same pump in this simulation. One pump because it's more interesting. 
+        refuelTime = r.nextInt(fuelOrElectricityCapacity * 5);
+        while(currentFuelLevel < fuelOrElectricityCapacity) {
+        Thread.sleep(refuelTime);
+        currentFuelLevel += 5;
+        if(currentFuelLevel )
+        }
     }
 
 }
 
 public class ToyotaCorollaCross extends Vehicle {
 
-    ToyotaCorollaCross(String name, Double position, Double speed, Double capacity) {
+    ToyotaCorollaCross(String name, Double position, Double speed, int capacity) {
         super(name, position, speed, capacity);
         // TODO Auto-generated constructor stub
     }
@@ -86,7 +90,7 @@ public class ToyotaCorollaCross extends Vehicle {
 public class VolkswagenTiguan extends Vehicle {
 
     VolkswagenTiguan(String name, Double position, Double speed,
-            Double capacity) {
+            int capacity) {
         super(name, position, acceleration, avgSpeed, speed, capacity);
         // TODO Auto-generated constructor stub
     }
@@ -96,7 +100,7 @@ public class VolkswagenTiguan extends Vehicle {
 
 public class NissanSentra extends Vehicle {
 
-    NissanSentra(String name, Double position, Double speed, Double capacity) {
+    NissanSentra(String name, Double position, Double speed, int capacity) {
         super(name, position, acceleration, avgSpeed, speed, capacity);
         // TODO Auto-generated constructor stub
     }
@@ -107,7 +111,7 @@ public class NissanSentra extends Vehicle {
 public class BMWM8CompetitionGranCoupe extends Vehicle {
 
     BMWM8CompetitionGranCoupe(String name, Double position, Double speed,
-            Double capacity) {
+            int capacity) {
         super(name, position, acceleration, avgSpeed, speed, capacity);
         // TODO Auto-generated constructor stub
     }
@@ -128,7 +132,7 @@ public class LamborghiniHuracanSTO extends Vehicle {
 public class Porsche911TurboSCabriolet extends Vehicle {
 
     Porsche911TurboSCabriolet(String name, Double position, Double speed,
-            Double capacity) {
+            int capacity) {
         super(name, position, acceleration, avgSpeed, speed, capacity);
         // TODO Auto-generated constructor stub
     }
@@ -139,7 +143,7 @@ public class Porsche911TurboSCabriolet extends Vehicle {
 public class TeslaModelSPlaid extends Vehicle {
 
     TeslaModelSPlaid(String name, Double position, Double speed,
-            Double capacity) {
+            int capacity) {
         super(name, position, acceleration, avgSpeed, speed, capacity);
         // TODO Auto-generated constructor stub
     }
