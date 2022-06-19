@@ -45,8 +45,7 @@ abstract class Vehicle implements Runnable {
                     out.println("The " + vehicleName + " is currently at position " + position
                             + " and is moving at a speed of " + speed + " and currently has "
                             + currentFuelLevel + " gallons/gal-e of fuel left!");
-                } else if (position <= 99.99 && currentFuelLevel == 0 && winner != true) { // Condition for
-                                                                                           // refueling.
+                } else if (position <= 99.99 && currentFuelLevel == 0 && winner != true) { // Condition for refueling
                     refuel();
                 } else if (position >= 100 && winner != true) { // Win condition.
                     winner = true;
