@@ -2,6 +2,7 @@ import static java.lang.System.out;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ abstract class Vehicle implements Runnable, List {
     protected int refuelTime; // random amount of time to refuel.
     protected boolean winner = false;
     protected static int i = 0;
-    List<String> raceResults = new ArrayList<>();
+    static ArrayList<String> raceResults = new ArrayList<>();
 
     Vehicle(String name, Double position, Double speed, int capacity) {
 
@@ -52,10 +53,9 @@ abstract class Vehicle implements Runnable, List {
                 } else if (position >= 100 && winner != true) { // Win condition.
                     winner = true;
                     i++;
-                    out.println(vehicleName + " has just crossed the finish as car number: " + i);
+                    out.println(vehicleName + " has just crossed the finish in position: " + i);
                     WriteResultsToFile.createFile();
-                    raceResults.add("The " + vehicleName + " finished the race as car number: " + i);
-                    raceResults.add("");
+                    raceResults.add("The " + vehicleName + " finished the race in position: " + i);
                     WriteResultsToFile.writeToFile(raceResults);
                 }
             } catch (Exception e) {
@@ -167,13 +167,18 @@ class WriteResultsToFile {
         }
     }
 
-    public static void writeToFile(ArrayList<Object> raceResults) {
+    public static void writeToFile(ArrayList<String> raceResults) {
+        try{
         FileWriter writeRaceResults = new FileWriter("raceResults.txt");
-        Path resultsFilePath = Paths.get("raceResults.txt");
-        writeRaceResults.write(resultsFilePath, raceResults);
+        for (String str : raceResults) {
+            writeRaceResults.write(str + System.lineSeparator());
+        }
+        writeRaceResults.close();
         out.println("Race results successfully saved!");
+    } catch(IOException e) {
+        e.printStackTrace();
     }
-
+  }
 }
 
 class Main {
