@@ -2,16 +2,21 @@ import static java.lang.System.out;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
- abstract class Vehicle implements Runnable, MustImplement {
+abstract class Vehicle implements Runnable, List {
     protected String vehicleName = null;
     protected Double position = 0.0;
     protected Double speed;
     protected int fuelOrElectricityCapacity;
     protected int currentFuelLevel;
     protected int refuelTime; // random amount of time to refuel.
-    protected static boolean winner = false;
+    protected boolean winner = false;
+    protected static int i = 0;
+    List<String> raceResults = new ArrayList<>();
 
     Vehicle(String name, Double position, Double speed, int capacity) {
 
@@ -30,35 +35,29 @@ import java.util.Random;
                 if (position == 0) {
                     out.println(vehicleName + " has joined the race!");
                     out.println("\nThe current vehicle: " + vehicleName + " is at the starting line!\n");
-                    for (int i = 5; i != 0; i--) {
-                        out.println(i);
-                        if (i == 1) {
-                            out.println("\n\nGo!\n\n");
-                            position += speed; // Easier way than doing complex math.
-                            out.println(vehicleName + " is now at position " + position + "!");
-                        }
-                    }
+                    out.println("\n\n" + vehicleName + ": Go!");
+                    position += speed; // Easier way than doing complex math.
+                    out.println(vehicleName + " is now at position " + position + "!");
                 }
 
-                    if (position <= 99.99 && currentFuelLevel != 0 && winner != true) { // Normal race loop.
-                        position += speed;
-                        currentFuelLevel -= 1;
-                        out.println(vehicleName + " is currently at position " + position
-                                + " and is moving at a speed of " + speed + " and currently has "
-                                + currentFuelLevel + " gallons/KwH in fuel left!");
-                    } else if (position <= 99.99 && currentFuelLevel == 0 && winner != true) { // Condition for
-                                                                                                        // refueling.
-                        refuel();
-                    } else if (position <= 99.99 && currentFuelLevel != 0 && winner == true) { // Condition if
-                                                                                                        // another
-                                                                                                        // thread has
-                                                                                                        // already won.
-                        break;
-                    } else if (position >= 100 && winner != true) { // Win condition.
-                        winner = true;
-                        out.println(vehicleName + " is the winner!");
-                        System.exit(0);
-                    }
+                  else if (position <= 99.99 && currentFuelLevel != 0 && winner != true) { // Normal race loop.
+                    position += speed;
+                    currentFuelLevel -= 1;
+                    out.println(vehicleName + " is currently at position " + position
+                            + " and is moving at a speed of " + speed + " and currently has "
+                            + currentFuelLevel + " gallons of fuel left!");
+                } else if (position <= 99.99 && currentFuelLevel == 0 && winner != true) { // Condition for
+                                                                                           // refueling.
+                    refuel();
+                } else if (position >= 100 && winner != true) { // Win condition.
+                    winner = true;
+                    i++;
+                    out.println(vehicleName + " has just crossed the finish as car number: " + i);
+                    WriteResultsToFile.createFile();
+                    raceResults.add("The " + vehicleName + " finished the race as car number: " + i);
+                    raceResults.add("");
+                    // WriteResultsToFile.writeToFile(raceResults);
+                }
             } catch (Exception e) {
                 out.println(e.getMessage());
             }
@@ -68,105 +67,98 @@ import java.util.Random;
     }
 
     protected synchronized void refuel() {
+        out.println(vehicleName + " is currently refueling!");
         Random r = new Random();
         refuelTime = r.nextInt(fuelOrElectricityCapacity * 5);
-        try{
-        while(currentFuelLevel < fuelOrElectricityCapacity) {
-        Thread.sleep(refuelTime);
-        currentFuelLevel += 1;
-        }
-        } catch(Exception e) {
+        try {
+            while (currentFuelLevel < fuelOrElectricityCapacity) {
+                Thread.sleep(refuelTime);
+                currentFuelLevel += 1;
+            }
+            out.println(vehicleName + " has been successfully refueled by " + currentFuelLevel + " gallons!");
+        } catch (Exception e) {
             out.println(e.getMessage());
         }
     }
-        
-    }
 
+}
 
- class ToyotaCorollaCross extends Vehicle {
+class ToyotaCorollaCross extends Vehicle {
 
     ToyotaCorollaCross(String name, Double position, Double speed, int capacity) {
         super(name, position, speed, capacity);
-        // TODO Auto-generated constructor stub
+
     }
-    // 2022 Toyota Corolla Cross--One of slowest in 2021.
+    // First Slowest of 2022.
 }
 
- class VolkswagenTiguan extends Vehicle {
+class VolkswagenTiguan extends Vehicle {
 
     VolkswagenTiguan(String name, Double position, Double speed,
             int capacity) {
-        super(name, position, acceleration, avgSpeed, speed, capacity);
-        // TODO Auto-generated constructor stub
+        super(name, position, speed, capacity);
+
     }
-    // Second Slowest of 2021.
+    // Second Slowest of 2022.
 
 }
 
- class NissanSentra extends Vehicle {
+class NissanSentra extends Vehicle {
 
     NissanSentra(String name, Double position, Double speed, int capacity) {
-        super(name, position, acceleration, avgSpeed, speed, capacity);
-        // TODO Auto-generated constructor stub
+        super(name, position, speed, capacity);
+
     }
-    // Third Slowest of 2021.
+    // Third Slowest of 2022.
 
 }
 
- class BMWM8CompetitionGranCoupe extends Vehicle {
+class BMWM8CompetitionGranCoupe extends Vehicle {
 
-    BMWM8CompetitionGranCoupe(String name, Double position, Double speed,
-            int capacity) {
-        super(name, position, acceleration, avgSpeed, speed, capacity);
-        // TODO Auto-generated constructor stub
+    BMWM8CompetitionGranCoupe(String name, Double position, Double speed, int capacity) {
+        super(name, position, speed, capacity);
+
     }
-    // Fourth Fastest.
+    // Fourth Fastest of 2022.
 }
 
- class LamborghiniHuracanSTO extends Vehicle {
+class LamborghiniHuracanSTO extends Vehicle {
 
-    LamborghiniHuracanSTO(String name, Double position, Double speed,
-            Double capacity) {
-        super(name, position, acceleration, avgSpeed, speed, capacity);
-        // TODO Auto-generated constructor stub
+    LamborghiniHuracanSTO(String name, Double position, Double speed, int capacity) {
+        super(name, position, speed, capacity);
+
     }
-    // Third Fastest.
-
-}
-
- class Porsche911TurboSCabriolet extends Vehicle {
-
-    Porsche911TurboSCabriolet(String name, Double position, Double speed,
-            int capacity) {
-        super(name, position, acceleration, avgSpeed, speed, capacity);
-        // TODO Auto-generated constructor stub
-    }
-    // Second Fastest.
+    // Third Fastest of 2022.
 
 }
 
- class TeslaModelSPlaid extends Vehicle {
+class Porsche911TurboSCabriolet extends Vehicle {
 
-    TeslaModelSPlaid(String name, Double position, Double speed,
-            int capacity) {
-        super(name, position, acceleration, avgSpeed, speed, capacity);
-        // TODO Auto-generated constructor stub
+    Porsche911TurboSCabriolet(String name, Double position, Double speed, int capacity) {
+        super(name, position, speed, capacity);
+
     }
-    // First Fastest.
+    // Second Fastest of 2022.
 
 }
 
- interface MustImplement {
+class TeslaModelSPlaid extends Vehicle {
+
+    TeslaModelSPlaid(String name, Double position, Double speed, int capacity) {
+        super(name, position, speed, capacity);
+
+    }
+    // First Fastest of 2022.
 
 }
 
 class WriteResultsToFile {
     public static void createFile() {
         try {
-            File raceResults = new File(raceResults.txt);
+            File raceResults = new File("raceResults.txt");
 
             if (raceResults.createNewFile()) {
-                out.println("Race results file successfully created!");
+                out.println("\n\nRace results file successfully created!\n\n");
             }
 
         } catch (IOException e) {
@@ -175,9 +167,10 @@ class WriteResultsToFile {
         }
     }
 
-    public static void writeToFile(String[] resultsArray) {
-        FileWriter writeRaceResults = new FileWriter(raceResults.txt);
-        writeRaceResults.write(resultsArray);
+    public static void writeToFile(ArrayList<String> raceResults) {
+        FileWriter writeRaceResults = new FileWriter("raceResults.txt");
+        Path resultsFilePath = Paths.get("raceResults.txt");
+        writeRaceResults.write(resultsFilePath, raceResults);
         out.println("Race results successfully saved!");
     }
 
@@ -185,9 +178,29 @@ class WriteResultsToFile {
 
 class Main {
     public static void main(String[] args) {
-        ToyotaCorollaCross toyoCross = new ToyotaCorollaCross("2022 Toyota Corolla Cross", 0.0, 1.0, 12); //818.4 ft to go 0-60mph in 9.3 seconds. 9.3/100
-        Thread first = new Thread(toyoCross);
-        first.start(); 
+        ToyotaCorollaCross toyoCross = new ToyotaCorollaCross("2022 Toyota Corolla Cross", 0.0, 2.0, 12);
+        VolkswagenTiguan volkoTiguan = new VolkswagenTiguan("2022 Vokswagen Tiguan", 0.0, 2.5, 15);
+        NissanSentra nissaSentra = new NissanSentra("2022 Nissan Sentra", 0.0, 3.0, 12);
+        BMWM8CompetitionGranCoupe bMWM8CompoGranCoupe = new BMWM8CompetitionGranCoupe(
+                "2022 BMW M8 Competition Gran Coupe", 0.0, 3.5, 20);
+        LamborghiniHuracanSTO lamboHuracanSTO = new LamborghiniHuracanSTO("2022 Lamborghini Huracan STO", 0.0, 4.0, 21);
+        Porsche911TurboSCabriolet porscho911TurboSCabriolet = new Porsche911TurboSCabriolet(
+                "2022 Porsche 911 Turbo S Cabriolet", 0.0, 4.5, 18);
+        TeslaModelSPlaid tesloModelSPlaid = new TeslaModelSPlaid("2022 Tesla Model S Plaid", 0.0, 5.0, 15); //Tank capacity is extrapolated based upon 33.7kWh in a average gallon of fuel over its range of 390 miles/charge.
+        Thread second = new Thread(volkoTiguan);
+        Thread third = new Thread(nissaSentra);
+        Thread fourth = new Thread(bMWM8CompoGranCoupe);
+        Thread fifth = new Thread(lamboHuracanSTO);
+        Thread sixth = new Thread(porscho911TurboSCabriolet);
+        Thread seventh = new Thread(tesloModelSPlaid);
+        first.setName("Toyota Cross");
+        first.start();
+        second.start();
+        third.start();
+        fourth.start();
+        fifth.start();
+        sixth.start();
+        seventh.start();
 
     }
 }
