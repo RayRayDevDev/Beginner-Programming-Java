@@ -56,7 +56,7 @@ abstract class Vehicle implements Runnable, List {
                     WriteResultsToFile.createFile();
                     raceResults.add("The " + vehicleName + " finished the race as car number: " + i);
                     raceResults.add("");
-                    // WriteResultsToFile.writeToFile(raceResults);
+                    WriteResultsToFile.writeToFile(raceResults);
                 }
             } catch (Exception e) {
                 out.println(e.getMessage());
@@ -167,7 +167,7 @@ class WriteResultsToFile {
         }
     }
 
-    public static void writeToFile(ArrayList<String> raceResults) {
+    public static void writeToFile(ArrayList<Object> raceResults) {
         FileWriter writeRaceResults = new FileWriter("raceResults.txt");
         Path resultsFilePath = Paths.get("raceResults.txt");
         writeRaceResults.write(resultsFilePath, raceResults);
@@ -181,12 +181,11 @@ class Main {
         ToyotaCorollaCross toyoCross = new ToyotaCorollaCross("2022 Toyota Corolla Cross", 0.0, 2.0, 12);
         VolkswagenTiguan volkoTiguan = new VolkswagenTiguan("2022 Vokswagen Tiguan", 0.0, 2.5, 15);
         NissanSentra nissaSentra = new NissanSentra("2022 Nissan Sentra", 0.0, 3.0, 12);
-        BMWM8CompetitionGranCoupe bMWM8CompoGranCoupe = new BMWM8CompetitionGranCoupe(
-                "2022 BMW M8 Competition Gran Coupe", 0.0, 3.5, 20);
+        BMWM8CompetitionGranCoupe bMWM8CompoGranCoupe = new BMWM8CompetitionGranCoupe("2022 BMW M8 Competition Gran Coupe", 0.0, 3.5, 20);
         LamborghiniHuracanSTO lamboHuracanSTO = new LamborghiniHuracanSTO("2022 Lamborghini Huracan STO", 0.0, 4.0, 21);
-        Porsche911TurboSCabriolet porscho911TurboSCabriolet = new Porsche911TurboSCabriolet(
-                "2022 Porsche 911 Turbo S Cabriolet", 0.0, 4.5, 18);
+        Porsche911TurboSCabriolet porscho911TurboSCabriolet = new Porsche911TurboSCabriolet("2022 Porsche 911 Turbo S Cabriolet", 0.0, 4.5, 18);
         TeslaModelSPlaid tesloModelSPlaid = new TeslaModelSPlaid("2022 Tesla Model S Plaid", 0.0, 5.0, 15); //Tank capacity is extrapolated based upon 33.7kWh in a average gallon of fuel over its range of 390 miles/charge.
+        Thread first = new Thread(toyoCross);
         Thread second = new Thread(volkoTiguan);
         Thread third = new Thread(nissaSentra);
         Thread fourth = new Thread(bMWM8CompoGranCoupe);
