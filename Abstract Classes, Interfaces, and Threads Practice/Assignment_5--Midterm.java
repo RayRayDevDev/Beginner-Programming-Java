@@ -6,7 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-abstract class Vehicle implements Runnable, List {
+//Created by Cole Stanley (RäDev) for COP 3330C
+//Created with JDK 18.0.1.1
+
+abstract class Vehicle implements Runnable {
     protected String vehicleName = null;
     protected Double position = 0.0;
     protected Double speed;
@@ -32,40 +35,36 @@ abstract class Vehicle implements Runnable, List {
         do {
             try {
                 if (position == 0) {
-                    out.println(vehicleName + " has joined the race!");
-                    out.println("\nThe current vehicle: " + vehicleName + " is at the starting line!\n");
-                    out.println("\n\n" + vehicleName + ": Go!");
+                    out.println("A " + vehicleName + " has joined the race!");
+                    out.println("The " + vehicleName + " is at the starting line!");
+                    out.println("\n" + vehicleName + ": Go!\n");
                     position += speed; // Easier way than doing complex math.
-                    out.println(vehicleName + " is now at position " + position + "!");
-                }
-
-                  else if (position <= 99.99 && currentFuelLevel != 0 && winner != true) { // Normal race loop.
+                    out.println("The " + vehicleName + " is now at position " + position + "!");
+                } else if (position <= 99.99 && currentFuelLevel != 0 && winner != true) { // Normal race loop.
                     position += speed;
                     currentFuelLevel -= 1;
-                    out.println(vehicleName + " is currently at position " + position
+                    out.println("The " + vehicleName + " is currently at position " + position
                             + " and is moving at a speed of " + speed + " and currently has "
-                            + currentFuelLevel + " gallons of fuel left!");
+                            + currentFuelLevel + " gallons/gal-e of fuel left!");
                 } else if (position <= 99.99 && currentFuelLevel == 0 && winner != true) { // Condition for
                                                                                            // refueling.
                     refuel();
                 } else if (position >= 100 && winner != true) { // Win condition.
                     winner = true;
                     i++;
-                    out.println(vehicleName + " has just crossed the finish in position: " + i);
+                    out.println("\nThe " + vehicleName + " has just crossed the finish line in position: " + i + "!\n");
                     WriteResultsToFile.createFile();
-                    raceResults.add("The " + vehicleName + " finished the race in position: " + i);
-                    WriteResultsToFile.writeToFile(raceResults);
+                    raceResults.add("The " + vehicleName + " has finished the race in position: " + i + ".");
+                    WriteResultsToFile.writeToFile(raceResults, vehicleName);
                 }
             } catch (Exception e) {
                 out.println(e.getMessage());
             }
-
         } while (!winner);
-
     }
 
     protected synchronized void refuel() {
-        out.println(vehicleName + " is currently refueling!");
+        out.println("\nThe " + vehicleName + " is out of fuel and is currently refueling!\n");
         Random r = new Random();
         refuelTime = r.nextInt(fuelOrElectricityCapacity * 5);
         try {
@@ -73,14 +72,12 @@ abstract class Vehicle implements Runnable, List {
                 Thread.sleep(refuelTime);
                 currentFuelLevel += 1;
             }
-            out.println(vehicleName + " has been successfully refueled by " + currentFuelLevel + " gallons!");
+            out.println("\nThe " + vehicleName + " has been successfully refueled by " + currentFuelLevel + " gallons!\n");
         } catch (Exception e) {
             out.println(e.getMessage());
         }
     }
-
 }
-
 class ToyotaCorollaCross extends Vehicle {
 
     ToyotaCorollaCross(String name, Double position, Double speed, int capacity) {
@@ -160,19 +157,19 @@ class WriteResultsToFile {
             }
 
         } catch (IOException e) {
-            out.print("An error occured: ");
+            out.print("\n\nAn error occured: \n\n");
             e.printStackTrace();
         }
-    }
+   }
 
-    public static void writeToFile(ArrayList<String> raceResults) {
+    public static void writeToFile(ArrayList<String> raceResults, String name) {
         try{
         FileWriter writeRaceResults = new FileWriter("raceResults.txt");
         for (String str : raceResults) {
             writeRaceResults.write(str + System.lineSeparator());
         }
         writeRaceResults.close();
-        out.println("Race results successfully saved!");
+        out.println("The " + name + "'s race results have been successfully saved!\n");
     } catch(IOException e) {
         e.printStackTrace();
     }
@@ -196,6 +193,12 @@ class Main {
         Thread sixth = new Thread(porscho911TurboSCabriolet);
         Thread seventh = new Thread(tesloModelSPlaid);
         first.setName("Toyota Cross");
+        second.setName("Volkswagen Tiguan");
+        third.setName("Nissan Sentra");
+        fourth.setName("BMW M8");
+        fifth.setName("Lamborghini Huracan");
+        sixth.setName("Porsche 911");
+        seventh.setName("Tesla Model-S");
         first.start();
         second.start();
         third.start();
