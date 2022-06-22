@@ -1,15 +1,8 @@
 import static java.lang.System.out;
-
-import java.security.PublicKey;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 
-class toStringClass{
-     public String toString() {
-        String arrayNames = " This is the list of names as they appear in the Array: " + Main.names;
-        return arrayNames;
-    }
-}
 class Main {
     
 public static void main(String[] args) {
@@ -45,8 +38,17 @@ public static void main(String[] args) {
     out.println("\n");
 
     out.println("The location of the element 'Heidi' is: " + names.indexOf("Heidi"));
+    
+    out.println("\n");
 
-    out.println(names.toArray());
-            
+    String namesArray[] = new String[names.size()];
+    names.toArray(namesArray);
+
+    int j = 0;
+    
+    for(String i : namesArray) {
+        out.println("The element at index " + j + " is: " + i + ".");
+        j++;
+    }
     }
 }
