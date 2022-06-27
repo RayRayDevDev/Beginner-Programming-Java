@@ -1,7 +1,12 @@
 import static java.lang.System.out;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
+
+//Created by Cole Stanley (RäDev) for COP 3330C
+//Created with JDK 18.0.1.1
 
 class Main {
     
@@ -50,5 +55,13 @@ public static void main(String[] args) {
         out.println("The element at index " + j + " is: " + i + ".");
         j++;
     }
+    
+    out.println("\n");
+
+    List<String> newNames = Arrays.asList(namesArray);
+    for(String i : newNames) {
+        out.println(i);
+    }
+    
     }
 }
