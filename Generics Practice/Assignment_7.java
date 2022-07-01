@@ -1,10 +1,10 @@
-
 class GenericArrayMethod <E> {
 public static <E> Integer iterateThruArrayAndGetPosition(E[] inputArray, E element) {
     int pos = -1;
     for(int i = 0; i < inputArray.length; i++) {
         if(inputArray[i] == element) {
             pos = i;
+            break;
         }
         else if (inputArray[i] != element) {
             continue;
