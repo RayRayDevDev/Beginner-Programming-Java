@@ -22,7 +22,6 @@ public static void main(String[] args) {
     Integer[] intArray = new Integer[] {5, 10, 15, 20, 25};
     Integer userIntSelection = 25;
     System.out.println("The position of the element, " + userIntSelection + ", is: " + GenericArrayMethod.iterateThruArrayAndGetPosition(intArray, userIntSelection) + ".");
-
 }
 
 }
