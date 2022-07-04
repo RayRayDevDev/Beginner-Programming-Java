@@ -1,3 +1,7 @@
+
+//Created by Cole Stanley (RäDev) for COP 3330C
+//Created with JDK 18.0.1.1
+
 class GenericArrayMethod <E> {
 public static <E> Integer iterateThruArrayAndGetPosition(E[] inputArray, E element) {
     int pos = -1;
