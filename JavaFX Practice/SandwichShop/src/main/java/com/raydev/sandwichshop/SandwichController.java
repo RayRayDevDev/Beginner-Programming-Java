@@ -1,23 +1,26 @@
 package com.raydev.sandwichshop;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class SandwichController {
     @FXML
-    private TextField grandTotal;
+    private TextField guiGrandTotal;
     public SandwichController() {
-
     }
     @FXML
     private void initialize() {
-
     }
+//    @FXML
+//    private Label rye, sourdough, ciabatta, wheat, white, salami, chicken, turkey, roastBeef, eggSalad;
+
     @FXML
-    private void printGrandTotal() {
-        grandTotal.setText("This is some text.");
+    private void grandTotalCalc(int userBreadChoice, int userFillingChoice, int userAddOnsChoices) {
+        Double userBreadPrice = Prices.breadPrices(userBreadChoice);
+        Double userFillingPrice = Prices.fillingPrices(userFillingChoice);
+        Double userAddOnsPrice = Prices.addOnPrices(userAddOnsChoices);
+        Double grandTotal = userBreadPrice + userFillingPrice + userAddOnsPrice;
+        guiGrandTotal.setText(String.valueOf(grandTotal));
     }
 }
