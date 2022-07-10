@@ -1,14 +1,23 @@
 package com.raydev.sandwichshop;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class SandwichController {
     @FXML
-    private Label welcomeText;
+    private TextField grandTotal;
+    public SandwichController() {
 
+    }
     @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
+    private void initialize() {
+
+    }
+    @FXML
+    private void printGrandTotal() {
+        grandTotal.setText("This is some text.");
     }
 }

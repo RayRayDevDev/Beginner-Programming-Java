@@ -11,10 +11,15 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("gui.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 640, 480);
-        stage.setTitle("Sandwich Shop");
-        stage.setScene(scene);
-        stage.show();
+        try {
+            Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+            stage.setTitle("Sandwich Shop");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public static void main(String[] args) {
