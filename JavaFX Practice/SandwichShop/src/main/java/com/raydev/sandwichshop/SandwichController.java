@@ -1,8 +1,10 @@
 package com.raydev.sandwichshop;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.MouseEvent;
 
 public class SandwichController {
     @FXML
@@ -13,14 +15,50 @@ public class SandwichController {
     private void initialize() {
     }
 //    @FXML
-//    private Label rye, sourdough, ciabatta, wheat, white, salami, chicken, turkey, roastBeef, eggSalad;
+//    private ToggleGroup breadRadioButtonGroup;
+//    @FXML
+//    private ToggleGroup fillingsRadioButtonGroup;
+    @FXML
+    private RadioButton rye, sourdough, ciabatta, wheat, white, salami, chicken, turkey, roastBeef, eggSalad;
+
+//    @FXML
+//    public static Double setRadioButtonValues(ToggleGroup breadRadioButtonGroup) {
+//        breadRadioButtonGroup.getToggles().addAll(
+//                new RadioButton("rye"),
+//                new RadioButton("sourdough"),
+//                new RadioButton("ciabatta"),
+//                new RadioButton("wheat"),
+//                new RadioButton("white"),
+//                new RadioButton("salami"),
+//                new RadioButton("chicken"),
+//                new RadioButton("turkey"),
+//                new RadioButton("roast beef"),
+//                new RadioButton("egg salad")
+//        );
+//        Double runningTotal = new Double[1];
+//        breadRadioButtonGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+//               Object[] findToggleIndex = breadRadioButtonGroup.getToggles().toArray();
+//               for (Object toggleIndex : findToggleIndex) {
+//                   if (breadRadioButtonGroup.getSelectedToggle().equals(toggleIndex)) {
+//                       runningTotal[0] = Prices.prices((int)toggleIndex);
+//                   }
+//                   break;
+//               }
+//           });
+//
+//        return runningTotal[0];
+//
+//    }
 
     @FXML
-    private void grandTotalCalc(int userBreadChoice, int userFillingChoice, int userAddOnsChoices) {
-        Double userBreadPrice = Prices.breadPrices(userBreadChoice);
-        Double userFillingPrice = Prices.fillingPrices(userFillingChoice);
-        Double userAddOnsPrice = Prices.addOnPrices(userAddOnsChoices);
-        Double grandTotal = userBreadPrice + userFillingPrice + userAddOnsPrice;
-        guiGrandTotal.setText(String.valueOf(grandTotal));
+    public void displayGrandTotal() {
+        Double total = Prices.prices(9);
+        guiGrandTotal.setText(String.valueOf(total));
     }
+
+//    private void setRadioButtonValues(int userSelection) {
+//        if(userSelection != 0) {
+//            setRadioButtonValues(userSelection);
+//        }
+//    }
 }

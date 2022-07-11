@@ -57,7 +57,7 @@
                         <Font name="Century" size="12.0" />
                      </font>
                   </Label>
-                  <ToggleButtonGroup layoutX="140.0" layoutY="79.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" selectionType="SINGLE">
+                  <ToggleButtonGroup fx:id="breadRadioButtonGroup" layoutX="140.0" layoutY="79.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" selectionType="SINGLE">
                       <toggles>
                         <RadioButton fx:id="rye" mnemonicParsing="false" text="Rye" />
                         <RadioButton fx:id="sourdough" mnemonicParsing="false" text="Sourdough">
@@ -85,7 +85,7 @@
                      <font>
                         <Font name="Century" size="12.0" />
                      </font></Label>
-                  <ToggleButtonGroup layoutX="137.0" layoutY="146.0" selectionType="SINGLE">
+                  <ToggleButtonGroup fx:id="fillingsRadioButtonGroup" layoutX="137.0" layoutY="146.0" selectionType="SINGLE">
                      <toggles>
                         <RadioButton fx:id="salami" mnemonicParsing="false" text="Salami">
                            <font>
@@ -106,7 +106,7 @@
                         <Font name="Century" size="18.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="guiGrandTotal" editable="false" layoutX="91.0" layoutY="13.0" onMouseClicked="#grandTotalCalc" />
+                  <TextField fx:id="guiGrandTotal" editable="false" layoutX="91.0" layoutY="13.0" onAction="#displayGrandTotal" />
                   <CheckBox layoutX="511.0" layoutY="17.0" mnemonicParsing="false" text="Lettuce" />
                   <CheckBox layoutX="511.0" layoutY="38.0" mnemonicParsing="false" text="Tomato" />
                   <CheckBox layoutX="511.0" layoutY="62.0" mnemonicParsing="false" text="Cheese" />
