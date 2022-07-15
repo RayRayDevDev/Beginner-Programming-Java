@@ -20,8 +20,4 @@ import java.lang.Double;
         prices.add(0.50); //Cheese; 11
         return (prices.get(userSelection));  //Should return the price of the index requested.
     }
-//    public static Double grandTotal(Double price) {
-//        Double runningTotal = 1.0;
-//        return price += runningTotal;
-//    }
 }
