@@ -1,4 +1,5 @@
 import java.sql.SQLException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import static java.lang.System.out;
 
@@ -27,29 +28,35 @@ public class Main {
     }
 
     public static void userSelection() {
-        Scanner userInput = new Scanner(System.in);
-        Person newPerson = new Person();
+
         int userSelection = 0;
         while (userSelection != -1) {
+            Scanner userInput = new Scanner(System.in);
+            Person newPerson = new Person();
             out.println("\nPlease enter the corresponding number to select the desired action (-1 to exit):\n1. Insert a new Person into the database.\n2. Select and display a particular record by first and last names.\n3. Select and display the entire database.");
             out.print("Please make your selection: ");
-            userSelection = userInput.nextInt();
-            switch (userSelection) {
-                case -1:
-                    break;
-                case 1:
-                    UserInputs.insertPersonUI();
-                    break;
-                case 2:
-                    UserInputs.selectPersonUI(newPerson);
-                    break;
-                case 3:
-                    UserInputs.findAllPeopleUI();
-                    break;
-                default:
-                    out.println("That was not a correct entry. Please try again!");
-                    continue;
-
+            try {
+                userSelection = userInput.nextInt();
+                switch (userSelection) {
+                    case -1:
+                        break;
+                    case 1:
+                        UserInputs.insertPersonUI();
+                        break;
+                    case 2:
+                        UserInputs.selectPersonUI(newPerson);
+                        break;
+                    case 3:
+                        UserInputs.findAllPeopleUI();
+                        break;
+                    default:
+                        out.println("\nYou did not select a correct option. Please try again!");
+                        continue;
+                }
+            } catch (InputMismatchException e) {
+                out.println(e.getMessage());
+                userSelection = 0;
+                continue;
             }
         }
     }
