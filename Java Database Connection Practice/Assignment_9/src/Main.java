@@ -28,22 +28,28 @@ public class Main {
 
     public static void userSelection() {
         Scanner userInput = new Scanner(System.in);
-        out.println("\nPlease enter the corresponding number to select the desired action (-1 to exit):\n1. Insert a new Person into the database.\n2. Select and display a particular record by first and last names.\n3. Select and display the entire database.");
-        out.print("Please make your selection: ");
-        int userSelection = userInput.nextInt();
         Person newPerson = new Person();
-        switch (userSelection) {
-            case 1:
-                UserInputs.insertPersonUI();
-                break;
-            case 2:
-                UserInputs.selectPersonUI(newPerson);
-                break;
-            case 3:
-                UserInputs.findAllPeopleUI();
-                break;
-            default:
-                break;
+        int userSelection = 0;
+        while (userSelection != -1) {
+            out.println("\nPlease enter the corresponding number to select the desired action (-1 to exit):\n1. Insert a new Person into the database.\n2. Select and display a particular record by first and last names.\n3. Select and display the entire database.");
+            out.print("Please make your selection: ");
+            userSelection = userInput.nextInt();
+            switch (userSelection) {
+                case -1:
+                    break;
+                case 1:
+                    UserInputs.insertPersonUI();
+                    break;
+                case 2:
+                    UserInputs.selectPersonUI(newPerson);
+                    break;
+                case 3:
+                    UserInputs.findAllPeopleUI();
+                    break;
+                default:
+                    out.println("That was not a correct entry. Please try again!");
+
+            }
         }
     }
 }

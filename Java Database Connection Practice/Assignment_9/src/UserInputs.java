@@ -12,7 +12,7 @@ public class UserInputs extends Person {
                 Scanner userInput = new Scanner(System.in);
                 StringBuilder sb1 = new StringBuilder();
                 StringBuilder sb2 = new StringBuilder();
-                out.print("Welcome! Type -1 to exit.\nPlease enter the person's first name: ");
+                out.print("Please enter the person's first name: ");
                 String firstName = String.valueOf(sb1.append(String.format("'%s'", userInput.next())));
                 out.println(firstName);
                 out.print("Now, please enter their last name: ");
@@ -26,14 +26,10 @@ public class UserInputs extends Person {
                 long creditCard = userInput.nextLong();
                 Person newPerson = new Person(firstName, lastName, age, ssn, creditCard);
                 insertPerson(newPerson);
-                out.print("All done? Type '-1' to exit, else type '1' to insert another record:\nTo go back to the previous menu, type any number except '-1' or '1': ");
+                out.print("All done? Type '-1' to exit, else type any other number to insert another record: ");
                 exit = userInput.nextInt();
                 if(exit == -1) {
                     break;
-                } else if (exit == 1) {
-                    continue;
-                } else {
-                    Main.userSelection();
                 }
 
             } catch (Exception e) {
@@ -51,14 +47,10 @@ public class UserInputs extends Person {
             out.print("Next, please enter the last name of the person you want more information about: ");
             String lastName = String.valueOf(sb2.append(String.format("'%s'", userInput.next())));
             out.println(person.selectPerson(firstName, lastName));
-            out.print("\n\nAll done? Type '-1' to exit, else type '1' to lookup another record.\nTo go back to the previous menu, type any number except '-1' or '1': ");
+            out.print("\n\nAll done? Type '-1' to exit, else type any other number to lookup another record: ");
             exit = userInput.nextInt();
             if(exit == -1) {
                 break;
-            } else if (exit == 1) {
-                continue;
-            } else {
-                Main.userSelection();
             }
         }
     }
@@ -66,12 +58,10 @@ public class UserInputs extends Person {
     public static void findAllPeopleUI() {
         out.println(findAllPeople());
         Scanner userInput = new Scanner(System.in);
-        out.print("\n\nAll done? Type -1 to exit, else type any number to go back to the previous menu: ");
+        out.print("\n\nAll done? Type -1 to exit, else type any other number to go back to the main menu: ");
         exit = userInput.nextInt();
         if (exit == -1) {
             System.exit(0);
-        } else {
-            Main.userSelection();
         }
     }
 }
