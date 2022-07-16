@@ -1,19 +1,22 @@
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.InputMismatchException;
+import java.util.Scanner;
 
 import static java.lang.System.out;
 
 public class Person {
 
-    String firstName;
-    String lastName;
-    int age;
-    long ssn;
-    long creditCard;
+    private String firstName;
+    private String lastName;
+    private int age;
+    private long ssn;
+    private long creditCard;
+
+    Person() {
+    }
 
     Person(String firstName, String lastName, int age, long ssn, long creditCard) {
         this.firstName = firstName;
@@ -25,11 +28,11 @@ public class Person {
 
 //    int i;
 
-    static final String DB_URL = "jdbc:mysql://localhost/Person";
-    static final String USER = "root";
-    static final String PASS = "root";
+    private static final String DB_URL = "jdbc:mysql://localhost/Person";
+    private static final String USER = "root";
+    private static final String PASS = "root";
 
-    public void insertPerson(Person person) {
+    protected void insertPerson(Person person) {
         try {
             Connection connection = DriverManager.getConnection(DB_URL, USER, PASS);
             Statement statement = connection.createStatement();
@@ -41,4 +44,6 @@ public class Person {
             e.printStackTrace();
         }
     }
+
+
 }
