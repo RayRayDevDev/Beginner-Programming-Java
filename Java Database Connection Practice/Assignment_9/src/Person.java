@@ -8,11 +8,12 @@ import java.util.InputMismatchException;
 import static java.lang.System.out;
 
 public class Person {
-    String firstName = null;
-    String lastName = null;
-    int age = 0;
-    long ssn = 0;
-    long creditCard = 0;
+
+    String firstName;
+    String lastName;
+    int age;
+    long ssn;
+    long creditCard;
 
     Person(String firstName, String lastName, int age, long ssn, long creditCard) {
         this.firstName = firstName;
@@ -32,7 +33,7 @@ public class Person {
         try {
             Connection connection = DriverManager.getConnection(DB_URL, USER, PASS);
             Statement statement = connection.createStatement();
-            String insertStatement = "INSERT INTO personalInformation (first, last, age, ssn, creditCard) VALUES (" + firstName + "," + lastName + "," + age + "," + ssn + "," + creditCard + ")";
+            String insertStatement = "INSERT INTO personalInformation (first, last, age, ssn, creditCard) VALUES (" + person.firstName + "," + person.lastName + "," + person.age + "," + person.ssn + "," + person.creditCard + ")";
             statement.executeUpdate(insertStatement);
             out.println("Insert into table completed successfully!");
         } catch (SQLException | InputMismatchException e) {
