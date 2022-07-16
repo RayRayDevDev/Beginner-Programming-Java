@@ -3,7 +3,8 @@ import java.util.Scanner;
 import static java.lang.System.out;
 
 public class UserInputs extends Person {
-    public static void userInputInsertPerson() {
+
+    public static void insertPersonUI() {
         int exit = 0;
         while (exit != -1) {
             try {
@@ -23,7 +24,7 @@ public class UserInputs extends Person {
                 out.print("Finally, please enter their primary credit card number (do not enter anyone's real cc number!): ");
                 long creditCard = userInput.nextLong();
                 Person newPerson = new Person(firstName, lastName, age, ssn, creditCard);
-                newPerson.insertPerson(newPerson);
+                Person.insertPerson(newPerson);
                 out.print("All done? Type -1 to exit, else type any number to insert another record: ");
                 exit = userInput.nextInt();
                 if(exit == -1) {
@@ -34,5 +35,10 @@ public class UserInputs extends Person {
                 e.printStackTrace();
             }
         }
+    }
+    public static void selectPersonUI(Person person) {
+        Scanner userInput = new Scanner(System.in);
+        person.selectPerson(person);
+        out.println(person);
     }
 }

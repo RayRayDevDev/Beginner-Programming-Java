@@ -1,9 +1,5 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Scanner;
-
 import static java.lang.System.out;
 
 public class Main {
@@ -26,7 +22,19 @@ public class Main {
 //                        " creditCard BigInt, " +
 //                        " PRIMARY KEY ( id ))";
 //                statement.executeUpdate(createTable);
-          UserInputs.userInputInsertPerson();
+        Scanner userInput = new Scanner(System.in);
+        out.println("Please enter the corresponding number to select the desired action:\n1. Insert a new Person into the database.\n2. Select and display a particular record by first name. ");
+        out.print("Please make your selection: ");
+        int userSelection = userInput.nextInt();
+        switch (userSelection) {
+            case 1:
+                UserInputs.insertPersonUI();
+                break;
+            case 2:
+                Person newPerson = new Person();
+                UserInputs.selectPersonUI(newPerson);
+                break;
+        }
 
     }
 }
