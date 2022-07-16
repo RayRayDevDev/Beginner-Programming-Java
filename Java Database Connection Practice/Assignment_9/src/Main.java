@@ -48,6 +48,7 @@ public class Main {
                     break;
                 default:
                     out.println("That was not a correct entry. Please try again!");
+                    continue;
 
             }
         }
