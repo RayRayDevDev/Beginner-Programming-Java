@@ -135,6 +135,7 @@ public class Person {
 
         } catch (SQLException e) {
             out.println("Uh oh! Something went wrong!\n" + e.getMessage());
+            e.printStackTrace();
             personArrayList = null;
         }
         return personArrayList;
