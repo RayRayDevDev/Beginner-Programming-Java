@@ -1,5 +1,8 @@
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+
+//Database logic.
 
 import static java.lang.System.out;
 
@@ -7,56 +10,56 @@ public class Person {
 
     @Override
     public String toString() {
-        return "Person:" + "\nFirst Name: " +  getFirstName() + "\nLast Name: " + getLastName() + "\nAge: " + getAge() + "\nSocial Security Number: " + getSsn() + "\nCredit Card Number: " + getCreditCard();
+        return "\nPerson:" + "\nFirst Name: " +  getFirstName() + "\nLast Name: " + getLastName() + "\nAge: " + getAge() + "\nSocial Security Number: " + getSsn() + "\nCredit Card Number: " + getCreditCard();
     }
 
     private String firstName;
 
-    public void setFirstName(String firstName) {
+    protected void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
-    public String getFirstName() {
+    protected String getFirstName() {
         return firstName;
     }
 
     private String lastName;
 
-    public void setLastName(String lastName) {
+    protected void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
-    public String getLastName() {
+    protected String getLastName() {
         return lastName;
     }
 
     private int age;
 
-    public void setAge(int age) {
+    protected void setAge(int age) {
         this.age = age;
     }
 
-    public int getAge() {
+    protected int getAge() {
         return age;
     }
 
     private long ssn;
 
-    public void setSsn(long ssn) {
+    protected void setSsn(long ssn) {
         this.ssn = ssn;
     }
 
-    public long getSsn() {
+    protected long getSsn() {
         return ssn;
     }
 
     private long creditCard;
 
-    public void setCreditCard(long creditCard) {
+    protected void setCreditCard(long creditCard) {
         this.creditCard = creditCard;
     }
 
-    public long getCreditCard() {
+    protected long getCreditCard() {
         return creditCard;
     }
 
@@ -87,15 +90,16 @@ public class Person {
             statement.close();
             connection.close();
         } catch (SQLException | InputMismatchException e) {
-            out.println("Uh oh! Something went wrong!");
+            out.println("Uh oh! Something went wrong!\n" + e.getMessage());
             e.printStackTrace();
         }
     }
-    protected Person selectPerson(Person person) {
+    protected Person selectPerson(String firstName, String lastName) {
+        Person person = new Person();
         try {
             Connection connection = DriverManager.getConnection(DB_URL, USER, PASS);
             Statement statement = connection.createStatement();
-            ResultSet set = statement.executeQuery("SELECT * FROM personalInformation WHERE first= " + "'Gabriel'" + ";");
+            ResultSet set = statement.executeQuery("SELECT * FROM personalInformation WHERE first= " + firstName + "AND last=" + lastName + ";");
             while (set.next()) {
                 person.setFirstName(set.getString("first"));
                 person.setLastName(set.getString("last"));
@@ -106,13 +110,33 @@ public class Person {
             set.close();
             statement.close();
             connection.close();
-            out.println("'Gabriel'" + " returned successfully!");
+            out.println("Returned the person successfully!");
 
 
         }catch (SQLException e) {
+            out.println("Uh oh! Something went wrong!\n" + e.getMessage());
             e.printStackTrace();
             person = null;
         }
         return person;
+    }
+    protected static ArrayList<Person> findAllPeople() {
+        ArrayList<Person> personArrayList = new ArrayList<>();
+        try {
+            Connection connection = DriverManager.getConnection(DB_URL, USER, PASS);
+            Statement statement = connection.createStatement();
+            ResultSet set = statement.executeQuery("SELECT * FROM personalInformation;");
+            while (set.next()) {
+                personArrayList.add(new Person(set.getString("first"), set.getString("last"), set.getInt("age"), set.getLong("ssn"), set.getLong("creditCard")));
+            }
+            set.close();
+            statement.close();
+            connection.close();
+
+        } catch (SQLException e) {
+            out.println("Uh oh! Something went wrong!\n" + e.getMessage());
+            personArrayList = null;
+        }
+        return personArrayList;
     }
 }

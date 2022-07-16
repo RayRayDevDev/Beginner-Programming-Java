@@ -22,19 +22,28 @@ public class Main {
 //                        " creditCard BigInt, " +
 //                        " PRIMARY KEY ( id ))";
 //                statement.executeUpdate(createTable);
+        userSelection();
+
+    }
+
+    public static void userSelection() {
         Scanner userInput = new Scanner(System.in);
-        out.println("Please enter the corresponding number to select the desired action:\n1. Insert a new Person into the database.\n2. Select and display a particular record by first name. ");
+        out.println("\nPlease enter the corresponding number to select the desired action (-1 to exit):\n1. Insert a new Person into the database.\n2. Select and display a particular record by first and last names.\n3. Select and display the entire database.");
         out.print("Please make your selection: ");
         int userSelection = userInput.nextInt();
+        Person newPerson = new Person();
         switch (userSelection) {
             case 1:
                 UserInputs.insertPersonUI();
                 break;
             case 2:
-                Person newPerson = new Person();
                 UserInputs.selectPersonUI(newPerson);
                 break;
+            case 3:
+                UserInputs.findAllPeopleUI();
+                break;
+            default:
+                break;
         }
-
     }
 }
