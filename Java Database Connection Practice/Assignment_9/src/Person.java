@@ -98,19 +98,23 @@ public class Person {
             Connection connection = DriverManager.getConnection(DB_URL, USER, PASS);
             Statement statement = connection.createStatement();
             ResultSet set = statement.executeQuery("SELECT * FROM personalInformation WHERE first= " + firstName + "AND last=" + lastName + ";");
-            while (set.next()) {
+            if (set.next()) {
                 person.setFirstName(set.getString("first"));
                 person.setLastName(set.getString("last"));
                 person.setAge(set.getInt("age"));
                 person.setSsn(set.getLong("ssn"));
                 person.setCreditCard(set.getLong("creditCard"));
+                set.close();
+                statement.close();
+                connection.close();
+                out.println("\nSuccessfully retrieved the person!");
+            } else {
+                set.close();
+                statement.close();
+                connection.close();
+                out.println("\nNo records matching first name " + firstName + " and last name " + lastName + " were found! Please check your spelling and try again!\n\nNo records were affected.");
+                Main.userSelectionScreen();
             }
-            set.close();
-            statement.close();
-            connection.close();
-            out.println("Returned the person successfully!");
-
-
         }catch (SQLException e) {
             out.println("Uh oh! Something went wrong!\n" + e.getMessage());
             e.printStackTrace();
@@ -138,19 +142,23 @@ public class Person {
         }
         return personArrayList;
     }
-    protected String deletePerson(String firstName, String lastName) {
+    protected String deletePerson(String firstName, String lastName) throws SQLException {
         String deleteSuccessful = "\nSuccessfully deleted " + firstName + " " + lastName + "!";
-        try {
-            Connection connection = DriverManager.getConnection(DB_URL, USER, PASS);
-            Statement statement = connection.createStatement();
-            String deleteStatement = "DELETE FROM personalInformation WHERE first=" + firstName + "AND last=" + lastName + ";";
+        Connection connection = DriverManager.getConnection(DB_URL, USER, PASS);
+        Statement statement = connection.createStatement();
+        String deleteStatement = "DELETE FROM personalInformation WHERE first=" + firstName + "AND last=" + lastName + ";";
+        ResultSet set = statement.executeQuery("SELECT * FROM personalInformation WHERE first=" + firstName + "AND last=" + lastName);
+        if(set.next()){
             statement.executeUpdate(deleteStatement);
+            set.close();
             statement.close();
             connection.close();
-        } catch (SQLException e) {
-            out.println("Uh oh! Something went wrong!\n" + e.getMessage());
-            e.printStackTrace();
+            return deleteSuccessful;
+        } else {
+            set.close();
+            statement.close();
+            connection.close();
+            return "\nNo records matching first name " + firstName + " and last name " + lastName + " were found! Please check your spelling and try again!\n\nNo records were affected.";
         }
-        return deleteSuccessful;
     }
 }
