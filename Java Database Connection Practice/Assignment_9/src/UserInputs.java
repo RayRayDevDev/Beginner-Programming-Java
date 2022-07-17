@@ -2,7 +2,10 @@ import java.sql.SQLException;
 import java.util.Scanner;
 import static java.lang.System.out;
 
+//Created with JDK-18.0.1.1
+//Created by Cole Stanley (RäDev) for COP 3330C
 //UI portion of database modification. Not required, but I found it easier for implementation purposes.
+
 public class UserInputs extends Person {
 
     public static void insertPersonUI() {

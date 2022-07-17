@@ -3,6 +3,9 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import static java.lang.System.out;
 
+//Created with JDK-18.0.1.1
+//Created by Cole Stanley (RäDev) for COP 3330C
+
 public class Main {
 //    static final String DB_URL = "jdbc:mysql://localhost/Person";
 //    static final String USER = "root";

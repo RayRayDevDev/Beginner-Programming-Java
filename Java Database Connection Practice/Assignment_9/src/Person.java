@@ -2,6 +2,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 
+//Created with JDK-18.0.1.1
+//Created by Cole Stanley (RäDev) for COP 3330C
 //Database logic.
 
 import static java.lang.System.out;
@@ -143,7 +145,7 @@ public class Person {
         return personArrayList;
     }
     protected String deletePerson(String firstName, String lastName) throws SQLException {
-        String deleteSuccessful = "\nSuccessfully deleted " + firstName + " " + lastName + "!";
+        String deleteSuccessful = "\nSuccessfully deleted the person with the first name " + firstName + " and the last name " + lastName + "!";
         Connection connection = DriverManager.getConnection(DB_URL, USER, PASS);
         Statement statement = connection.createStatement();
         String deleteStatement = "DELETE FROM personalInformation WHERE first=" + firstName + "AND last=" + lastName + ";";
