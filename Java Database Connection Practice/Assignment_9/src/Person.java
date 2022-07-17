@@ -74,8 +74,6 @@ public class Person {
         this.creditCard = creditCard;
     }
 
-//    int i;
-
     private static final String DB_URL = "jdbc:mysql://localhost/Person";
     private static final String USER = "root";
     private static final String PASS = "root";
@@ -139,5 +137,20 @@ public class Person {
             personArrayList = null;
         }
         return personArrayList;
+    }
+    protected String deletePerson(String firstName, String lastName) {
+        String deleteSuccessful = "\nSuccessfully deleted " + firstName + " " + lastName + "!";
+        try {
+            Connection connection = DriverManager.getConnection(DB_URL, USER, PASS);
+            Statement statement = connection.createStatement();
+            String deleteStatement = "DELETE FROM personalInformation WHERE first=" + firstName + "AND last=" + lastName + ";";
+            statement.executeUpdate(deleteStatement);
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            out.println("Uh oh! Something went wrong!\n" + e.getMessage());
+            e.printStackTrace();
+        }
+        return deleteSuccessful;
     }
 }

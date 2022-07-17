@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 import static java.lang.System.out;
 
-//UI portion of database modification. Not required, but I found it easier.
+//UI portion of database modification. Not required, but I found it easier for implementation purposes.
 public class UserInputs extends Person {
     static int exit = 0;
 
@@ -62,6 +62,23 @@ public class UserInputs extends Person {
         exit = userInput.nextInt();
         if (exit == -1) {
             System.exit(0);
+        }
+    }
+    public static void deletePersonUI(Person person) {
+        while (exit != -1) {
+            Scanner userInput = new Scanner(System.in);
+            StringBuilder sb1 = new StringBuilder();
+            StringBuilder sb2 = new StringBuilder();
+            out.print("Please enter the first name of the person you wish to remove from the database: ");
+            String firstName = String.valueOf(sb1.append(String.format("'%s'", userInput.next())));
+            out.print("Next, please enter the last name of the person you wish to remove from the database: ");
+            String lastName = String.valueOf(sb2.append(String.format("'%s'", userInput.next())));
+            out.println(person.deletePerson(firstName, lastName));
+            out.print("\n\nAll done? Type '-1' to exit, else type any other number to delete another record: ");
+            exit = userInput.nextInt();
+            if(exit == -1) {
+                break;
+            }
         }
     }
 }

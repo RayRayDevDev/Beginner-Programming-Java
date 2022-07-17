@@ -23,17 +23,17 @@ public class Main {
 //                        " creditCard BigInt, " +
 //                        " PRIMARY KEY ( id ))";
 //                statement.executeUpdate(createTable);
-        userSelection();
+        userSelectionScreen();
 
     }
 
-    public static void userSelection() {
+    public static void userSelectionScreen() {
 
         int userSelection = 0;
         while (userSelection != -1) {
             Scanner userInput = new Scanner(System.in);
             Person newPerson = new Person();
-            out.println("\nPlease enter the corresponding number to select the desired action (-1 to exit):\n1. Insert a new Person into the database.\n2. Select and display a particular record by first and last names.\n3. Select and display the entire database.");
+            out.println("\nPlease enter the corresponding number to select the desired action (-1 to exit):\n1. Insert a new Person into the database.\n2. Select and display a particular record by first and last names.\n3. Select and display the entire database.\n4. Select and delete a particular record by first and last names.");
             out.print("Please make your selection: ");
             try {
                 userSelection = userInput.nextInt();
@@ -49,12 +49,15 @@ public class Main {
                     case 3:
                         UserInputs.findAllPeopleUI();
                         break;
+                    case 4:
+                        UserInputs.deletePersonUI(newPerson);
+                        break;
                     default:
-                        out.println("\nYou did not select a correct option. Please try again!");
+                        out.println("\nYou did not select a valid option. Please try again!");
                         continue;
                 }
             } catch (InputMismatchException e) {
-                out.println(e.getMessage());
+                out.println("\nYou did not enter a number. Please try again, using only numbers.");
                 userSelection = 0;
                 continue;
             }
