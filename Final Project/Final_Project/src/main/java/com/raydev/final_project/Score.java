@@ -32,7 +32,6 @@ public class Score {
     }
     public void parseTime(int time) {
         intTime += time;
-        time = Integer.parseInt("0" + intTime);
     }
 
     @Override

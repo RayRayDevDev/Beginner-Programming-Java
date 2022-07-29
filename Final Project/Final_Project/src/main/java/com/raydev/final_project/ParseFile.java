@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class ParseFile<QuizQuestions> {
     private static final String IN_URL = "jdbc:mysql://localhost/input.txt";
 
-    public ArrayList parseFile() {
+    public <QuizQuestions> ArrayList<QuizQuestions> parseFile() {
         ArrayList<QuizQuestions> gameFileInputs = null;
         try {
             File gameInputs = new File(IN_URL);

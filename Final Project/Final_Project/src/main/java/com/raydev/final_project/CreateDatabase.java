@@ -18,7 +18,7 @@ public static void createNewDatabase() throws SQLException {
             statement.executeUpdate(mySQL);
             System.out.println("Database successfully created!");
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         createNewTable();
 }
@@ -34,10 +34,9 @@ public static void createNewDatabase() throws SQLException {
                 "Score INTEGER NOT NULL, " +
                 "Time VARCHAR(255), " +
                 "PRIMARY KEY (id))";
-        assert false;
         statement.executeUpdate(mySQL);
     } catch (SQLException e) {
-        e.printStackTrace();
+        System.out.println(e.getMessage());
     } finally {
         if (statement != null) {
             statement.close();

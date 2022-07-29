@@ -4,10 +4,9 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class ParseScores {
-    private static final String DB_URL = "jdbc:mysql://C:/TriviaDatabase/TriviaGame";
+    private static final String DB_URL = "jdbc:mysql://localhost/TriviaGame";
     private static final String USER = "root";
     private static final String PASS = "root";
-    private ArrayList<Score> scores = null;
     Connection connection = null;
     Statement statement = null;
 
@@ -27,7 +26,7 @@ public class ParseScores {
     }
 
     public ArrayList<Score> winners() {
-        scores = new ArrayList<>();
+        ArrayList<Score> scores = new ArrayList<>();
         try {
             connection = DriverManager.getConnection(DB_URL, USER, PASS);
             ResultSet resultSet = statement.executeQuery("SELECT * FROM GameResults;");
